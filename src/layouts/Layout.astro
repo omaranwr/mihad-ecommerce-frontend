@@ -1,4 +1,5 @@
 ---
+import { Font } from "astro:assets"
 import "../styles/global.css"
 ---
 <!doctype html>
@@ -9,7 +10,10 @@ import "../styles/global.css"
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>Mihad</title>
+		<Font cssVariable="--font-serif" />
+		<Font cssVariable="--font-sans" />
+		<Font cssVariable="--font-mono" />
 	</head>
 	<body class="bg-background text-foreground font-sans">
 		<slot />
