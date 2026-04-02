@@ -13,10 +13,7 @@ function MenuButton() {
       <SheetTrigger>
         <Menu />
       </SheetTrigger>
-      <SheetContent
-        side="left"
-        className="text-primary-foreground bg-black/50 backdrop-blur-xl"
-      >
+      <SheetContent side="left">
         <SheetHeader>
           <div className="px-3 pt-6">
             <a href="/" className="font-heading text-xl">
