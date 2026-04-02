@@ -1,28 +1,7 @@
 ---
-import { Menu, ShoppingBag, User } from "@lucide/astro";
-
-const links = [
-  {
-    name: "About us",
-    href: "/about",
-  },
-  {
-    name: "FAQs",
-    href: "/faq",
-  },
-  {
-    name: "Products",
-    href: "/products",
-  },
-  {
-    name: "Collections",
-    href: "/collections",
-  },
-  {
-    name: "Contacts",
-    href: "/contacts",
-  },
-] as const;
+import { ShoppingBag, User } from "@lucide/astro";
+import MenuButton from "./MenuButton";
+import { links } from "@/lib/constants";
 ---
 
 <div
@@ -42,10 +21,10 @@ const links = [
         }
       </ul>
       <div class="lg:hidden">
-        <Menu />
+        <MenuButton client:load />
       </div>
     </div>
-    <a href="/" class="font-heading"> Logo </a>
+    <a href="/" class="font-heading">Logo</a>
     <div class="flex flex-row-reverse gap-3">
       <a href="/cart">
         <ShoppingBag />
