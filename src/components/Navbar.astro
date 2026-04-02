@@ -1,14 +1,44 @@
 ---
 import {Menu, ShoppingBag, User} from '@lucide/astro'
+
+const links = [
+  {
+    name: "About us",
+    href: "/about"
+  },
+  {
+    name: "FAQs",
+    href: "/faq"
+  }, 
+  {
+    name: "Products",
+    href: "/products"
+  },
+  {
+    name: "Collections",
+    href: "/collections"
+  },
+  {
+    name: "Contacts",
+    href: "/contacts"
+  }
+] as const;
 ---
 <div class="bg-black/57 text-primary-foreground backdrop-blur-md fixed inset-x-0 z-1">
-  <nav class="grid w-full wrapper grid-cols-[1fr_min-content_1fr] py-10 px-8 z-2">
+  <nav class="grid w-full wrapper grid-cols-[1fr_min-content_1fr] py-10 px-8 z-2 items-center">
     <div>
-      <Menu />
+      <ul class="hidden lg:flex gap-3 text-sm items-center">
+        {links.map(link => (
+          <li><a href={link.href}>{link.name}</a></li>
+        ))}
+      </ul>
+      <div class="lg:hidden">
+        <Menu />
+      </div>
     </div>
-    <i>
+    <a href="/">
       Logo
-    </i>
+    </a>
     <div class="flex flex-row-reverse gap-3">
       <a href="/cart">
         <ShoppingBag />
