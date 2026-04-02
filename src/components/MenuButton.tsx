@@ -1,5 +1,10 @@
 import { Menu } from "lucide-react";
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "./ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { links } from "@/lib/constants";
 
 function MenuButton() {
