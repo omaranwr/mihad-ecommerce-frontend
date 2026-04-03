@@ -16,7 +16,7 @@ function HeroCarousel({ images }: { images: ComponentProps<"img">[] }) {
   }, [api]);
   return (
     <>
-      <Carousel opts={{ loop: true }} setApi={setApi}>
+      <Carousel opts={{ watchDrag: false }} setApi={setApi}>
         <CarouselContent className="w-full gap-0">
           {images.map((image, index) => (
             <CarouselItem key={index}>
@@ -27,7 +27,10 @@ function HeroCarousel({ images }: { images: ComponentProps<"img">[] }) {
       </Carousel>
       <div className="flex items-center justify-center gap-2 p-3">
         <Button
-          onClick={() => api?.scrollPrev()}
+          onClick={() => {
+            if (api?.canScrollPrev()) api?.scrollPrev();
+            else api?.scrollTo(images.length - 1);
+          }}
           variant={"ghost"}
           size={"icon-xs"}
         >
@@ -40,7 +43,10 @@ function HeroCarousel({ images }: { images: ComponentProps<"img">[] }) {
           />
         ))}
         <Button
-          onClick={() => api?.scrollNext()}
+          onClick={() => {
+            if (api?.canScrollNext()) api?.scrollNext();
+            else api?.scrollTo(0);
+          }}
           variant={"ghost"}
           size={"icon-xs"}
         >
