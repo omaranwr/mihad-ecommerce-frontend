@@ -40,6 +40,7 @@ function HeroCarousel({ images }: { images: ComponentProps<"img">[] }) {
           <div
             key={index}
             className={`${index === selected && "bg-foreground"} border-foreground h-2 w-2 rounded-full border`}
+            onClick={() => api?.scrollTo(index)}
           />
         ))}
         <Button
