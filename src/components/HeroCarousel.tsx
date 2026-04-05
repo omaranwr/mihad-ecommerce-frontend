@@ -7,8 +7,16 @@ import {
 } from "./ui/carousel";
 import { Button } from "./ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { socials } from "@/lib/constants";
 
-function HeroCarousel({ images }: { images: ComponentProps<"img">[] }) {
+function HeroCarousel({
+  panels,
+}: {
+  panels: {
+    image: ComponentProps<"img">;
+    link: { name: string; href: string };
+  }[];
+}) {
   const [api, setApi] = useState<CarouselApi>();
   const [selected, setSelected] = useState(0);
   useEffect(() => {
@@ -18,9 +26,30 @@ function HeroCarousel({ images }: { images: ComponentProps<"img">[] }) {
     <>
       <Carousel opts={{ watchDrag: false }} setApi={setApi}>
         <CarouselContent className="w-full gap-0">
-          {images.map((image, index) => (
+          {panels.map((panel, index) => (
             <CarouselItem key={index}>
-              <img {...image} className="w-full"></img>
+              <div className="relative">
+                <div className="text-primary-foreground absolute inset-0">
+                  <div className="font-heading flex h-screen flex-col items-center justify-center gap-4 sm:h-full">
+                    <h2 className="bg-primary rounded-4xl px-6 py-2 text-4xl">
+                      Follow Mihad
+                    </h2>
+                    <ul className="flex gap-5 pb-10">
+                      {socials.map((social, index) => (
+                        <li key={index} className="bg-primary rounded-full p-3">
+                          <a href={social.link}>
+                            <social.icon />
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="bg-primary rounded-full px-8 py-3">
+                      <a href={panel.link.href}>Buy {panel.link.name}</a>
+                    </div>
+                  </div>
+                </div>
+                <img {...panel.image} className="w-full"></img>
+              </div>
             </CarouselItem>
           ))}
         </CarouselContent>
@@ -29,14 +58,14 @@ function HeroCarousel({ images }: { images: ComponentProps<"img">[] }) {
         <Button
           onClick={() => {
             if (api?.canScrollPrev()) api?.scrollPrev();
-            else api?.scrollTo(images.length - 1);
+            else api?.scrollTo(panels.length - 1);
           }}
           variant={"ghost"}
           size={"icon-xs"}
         >
           <ChevronLeft />
         </Button>
-        {images.map((_, index) => (
+        {panels.map((_, index) => (
           <div
             key={index}
             className={`${index === selected && "bg-foreground"} border-foreground h-2 w-2 rounded-full border transition-transform ${index !== selected && "hover:scale-125"} duration-300`}

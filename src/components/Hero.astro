@@ -1,4 +1,5 @@
 ---
+import { links } from "@/lib/constants";
 import HeroCarousel from "./HeroCarousel";
 
 interface Image {
@@ -18,6 +19,11 @@ const images: Image[] = mockImages.map((image) => ({
   width: mockWidth,
   height: mockHeight,
 }));
+
+const panels = images.map((image, index) => ({
+  image: image,
+  link: links[index],
+}));
 ---
 
-<HeroCarousel client:load images={images} />
+<HeroCarousel client:load panels={panels} />
