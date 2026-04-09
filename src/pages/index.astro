@@ -1,32 +1,10 @@
 ---
 import Hero from "@/components/Hero.astro";
-import StillImageSection from "@/components/StillImageSection.astro";
 import Layout from "@/layouts/Layout.astro";
-
-import HeroImage from "@/assets/hero_main.jpeg";
+import StillImages from "@/components/StillImages.astro";
 ---
 
 <Layout>
   <Hero />
-  <StillImageSection
-    collection={{ name: "IDKKK Collections", href: "/" }}
-    image={{
-      src: HeroImage,
-      alt: "IDKKK Collections",
-    }}
-  />
-  <StillImageSection
-    collection={{ name: "IDKKK Collections", href: "/" }}
-    image={{
-      src: HeroImage,
-      alt: "IDKKK Collections",
-    }}
-  />
-  <StillImageSection
-    collection={{ name: "IDKKK Collections", href: "/" }}
-    image={{
-      src: HeroImage,
-      alt: "IDKKK Collections",
-    }}
-  />
+  <StillImages />
 </Layout>

@@ -1,0 +1,43 @@
+---
+import StillImageSection from "./StillImageSection.astro";
+import HeroImage from "@/assets/hero_main.jpeg";
+
+const sections = [
+  {
+    collection: {
+      name: "Some Collection",
+      href: "/",
+    },
+    image: {
+      src: HeroImage,
+      alt: "Some Collection",
+    },
+  },
+  {
+    collection: {
+      name: "Some Collection",
+      href: "/",
+    },
+    image: {
+      src: HeroImage,
+      alt: "Some Collection",
+    },
+  },
+  {
+    collection: {
+      name: "Some Collection",
+      href: "/",
+    },
+    image: {
+      src: HeroImage,
+      alt: "Some Collection",
+    },
+  },
+];
+---
+
+{
+  sections.map(({ collection, image }) => (
+    <StillImageSection collection={collection} image={image} />
+  ))
+}
