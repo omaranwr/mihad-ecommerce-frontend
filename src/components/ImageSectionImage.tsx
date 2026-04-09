@@ -14,7 +14,7 @@ function ImageSectionImage({
     target: ref,
     offset: ["start end", "end start"],
   });
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 2]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
   return (
     <>
       <div className="absolute inset-0" ref={ref}></div>
