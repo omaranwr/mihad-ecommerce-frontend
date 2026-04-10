@@ -25,11 +25,11 @@ export const links = [
 
 export const socials = [
   {
-    link: "facebook.com",
+    link: "https://facebook.com",
     icon: FacebookIcon,
   },
   {
-    link: "instagram.com",
+    link: "https://instagram.com",
     icon: InstagramIcon,
   },
 ] as const;
