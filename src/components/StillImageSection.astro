@@ -30,6 +30,10 @@ const imageResult = await getImage({ src: image.src });
       whileInView={{
         opacity: 1,
         y: 0,
+        transition: {
+          delay: 0.1,
+          ease: "easeOut",
+        },
       }}
       viewport={{
         once: true,
