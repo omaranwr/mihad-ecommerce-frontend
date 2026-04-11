@@ -10,7 +10,7 @@ function NavbarWrapper({ children }: { children: ReactNode }) {
   console.log(isOnTop);
   return (
     <div
-      className="data-[top=true]:bg-primary/57 text-primary-foreground group fixed inset-x-0 z-1 bg-transparent backdrop-blur-md transition-colors"
+      className="data-[top=true]:bg-primary/57 text-primary-foreground group bg-primary/20 shadow-primary/20 fixed inset-x-0 z-1 shadow backdrop-blur-md transition-colors"
       data-top={isOnTop}
     >
       {children}
