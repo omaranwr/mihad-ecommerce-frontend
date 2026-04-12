@@ -1,6 +1,12 @@
 ---
 import StillImageSection from "@/components/StillImages/StillImageSection.astro";
+
 import HeroImage from "@/assets/hero_main.jpeg";
+import Number2 from "@/assets/2.jpg"
+import Number3 from "@/assets/3.jpg"
+import Number4 from "@/assets/4.jpg"
+import Number6 from "@/assets/6.jpg"
+
 
 const sections = [
   {
@@ -14,25 +20,45 @@ const sections = [
     },
   },
   {
-    collection: {
-      name: "Some Collection",
-      href: "/",
-    },
     image: {
-      src: HeroImage,
-      alt: "Some Collection",
+      src: Number2,
+      alt: "Girl suit, dark blue"
     },
+    collection: {
+      name: "Shopping cart",
+      href: "/cart"
+    }
   },
   {
-    collection: {
-      name: "Some Collection",
-      href: "/",
-    },
     image: {
-      src: HeroImage,
-      alt: "Some Collection",
+      src: Number3,
+      alt: "Girl suit, crimson red"
     },
+    collection: {
+      name: "Shopping cart",
+      href: "/cart"
+    }
   },
+  {
+    image: {
+      src: Number4,
+      alt: "Girl suit, brown"
+    },
+    collection: {
+      name: "Shopping cart",
+      href: "/cart"
+    }
+  },
+  {
+    image: {
+      src: Number6,
+      alt: "Girl suit, black"
+    },
+    collection: {
+      name: "Shopping cart",
+      href: "/cart"
+    }
+  }
 ];
 ---
 
