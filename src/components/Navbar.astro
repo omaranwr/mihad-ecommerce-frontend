@@ -8,7 +8,7 @@ import Logo from "@/components/Logo.astro";
 
 <Wrapper client:load>
   <nav
-    class="grid w-full wrapper grid-cols-[1fr_1fr_1fr] py-6 px-8 z-2 items-center"
+    class="grid w-full wrapper grid-cols-[1fr_min-content_1fr] py-6 px-8 z-2 items-center"
   >
     <div>
       <ul class="hidden lg:flex gap-3 text-sm items-center">
@@ -26,8 +26,8 @@ import Logo from "@/components/Logo.astro";
     </div>
     <a
       href="/"
-      class="font-heading group-data-[top=true]:text-4xl text-2xl transition-all duration-50 flex justify-center"
-      ><Logo /></a
+      class="font-heading group-data-[top=true]:w-15 w-10 transition-all duration-300 flex justify-center"
+      ><Logo className="w-full h-full" /></a
     >
     <div class="flex flex-row-reverse gap-3">
       <a href="/cart" aria-label="Shopping cart">

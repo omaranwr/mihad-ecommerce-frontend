@@ -1,6 +1,17 @@
 ---
-import logo from "@/assets/logo.jpg"
-import { Image } from "astro:assets"
+import logo from "@/assets/logo.jpg";
+import { Image } from "astro:assets";
+import { twMerge } from "tailwind-merge";
+
+interface Props {
+  className?: string;
+}
+const { className } = Astro.props;
 ---
 
-<Image src={logo} alt="logo" class="w-10 h-10 rounded-full"/>
+<Image
+  src={logo}
+  alt="logo"
+  class={twMerge("w-10 h-10 rounded-full", className)}
+  loading={"eager"}
+/>
