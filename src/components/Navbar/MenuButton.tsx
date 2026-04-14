@@ -6,7 +6,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { links } from "@/lib/constants";
-import Logo from "@/components/Logo.astro";
+import Logo from "@/assets/logo.jpg";
 
 function MenuButton() {
   return (
@@ -20,7 +20,15 @@ function MenuButton() {
       >
         <SheetHeader>
           <div className="px-3 pt-6">
-            <a href="/" className="font-heading text-xl">
+            <a
+              href="/"
+              className="font-heading flex items-center gap-2 text-2xl"
+            >
+              <img
+                src={Logo.src}
+                alt="Logo"
+                className="h-10 w-10 rounded-full"
+              />{" "}
               Mehad
             </a>
           </div>
