@@ -43,7 +43,7 @@ function HeroCarousel({
         <CarouselContent className="w-full gap-0">
           {panels.map(({ link, image }, index) => (
             <CarouselItem key={index}>
-              <div className="relative">
+              <div className="relative h-svh">
                 <div className="text-primary-foreground absolute inset-0">
                   <div className="font-heading flex h-screen flex-col items-center justify-center gap-4 sm:h-full">
                     <h2 className="bg-primary/57 soft-ring rounded-4xl px-6 py-2 text-4xl backdrop-blur-xl">
@@ -72,13 +72,13 @@ function HeroCarousel({
                     </div>
                   </div>
                 </div>
-                <img
-                  src={image.imageResult.src}
-                  alt={image.alt}
-                  {...image.imageResult.attributes}
-                  className="h-[80svh] w-full object-cover"
-                ></img>
-              </div>
+                  <img
+                    src={image.imageResult.src}
+                    alt={image.alt}
+                    {...image.imageResult.attributes}
+                    className="h-[80svh] object-cover h-full w-full"
+                  />
+                </div>
             </CarouselItem>
           ))}
         </CarouselContent>
