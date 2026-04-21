@@ -19,7 +19,7 @@ function ImageSectionImage({
     <>
       <div className="absolute inset-0" ref={ref}></div>
       <motion.img
-        className="fixed top-0 h-svh w-full object-cover object-[50%_10%]"
+        className="fixed top-0 h-svh w-full object-cover"
         src={imageResult.src}
         alt={alt}
         {...imageResult.attributes}
