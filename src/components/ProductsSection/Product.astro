@@ -9,11 +9,11 @@ interface Props {
 const { price, name } = Astro.props;
 ---
 
-<Card>
-  <CardContent className="group">
+<Card className="group/product">
+  <CardContent>
     <div class="relative rounded aspect-3/4 w-full overflow-hidden">
       <div
-        class="bg-red-600 absolute inset-0 z-1 group-hover:opacity-0 transition-opacity duration-250"
+        class="bg-red-600 absolute inset-0 z-1 group-hover/product:opacity-0 transition-opacity duration-250"
       >
       </div>
       <div class="bg-gray-600 absolute inset-0"></div>
