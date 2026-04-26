@@ -8,7 +8,7 @@ import GlobalCardWrapper from "@/components/GlobalCardWrapper.astro";
 
 <Layout>
   <GlobalCardWrapper>
-    <Card>
+    <Card className="bg-primary text-primary-foreground">
       <CardHeader>
         <div class="w-full wrapper">
           <h1 class="font-heading text-2xl">Sign up</h1>
@@ -17,7 +17,7 @@ import GlobalCardWrapper from "@/components/GlobalCardWrapper.astro";
       <CardContent>
         <SignupForm />
         <div class="wrapper py-3">
-          Already have an account? <Button variant={"link"}
+          Already have an account? <Button variant={"link"} className={"text-primary-foreground"}
             ><a href="/login">Log in.</a></Button
           >
         </div>

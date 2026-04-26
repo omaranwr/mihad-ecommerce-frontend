@@ -7,21 +7,23 @@ import GlobalCardWrapper from "@/components/GlobalCardWrapper.astro";
 ---
 
 <Layout>
-  <GlobalCardWrapper>
-    <Card>
-      <CardHeader>
-        <div class="w-full wrapper">
-          <h1 class="font-heading text-2xl">Log in</h1>
-        </div>
-      </CardHeader>
-      <CardContent>
-        <LoginForm />
-        <div class="wrapper py-3">
-          Don't have an account? <Button variant={"link"}
-            ><a href="/signup">Create account.</a></Button
-          >
-        </div>
-      </CardContent>
-    </Card>
-  </GlobalCardWrapper>
+  <div class="bg-primary">
+    <GlobalCardWrapper>
+      <Card>
+        <CardHeader>
+          <div class="w-full wrapper">
+            <h1 class="font-heading text-2xl">Log in</h1>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <LoginForm />
+          <div class="wrapper py-3">
+            Don't have an account? <Button variant={"link"}
+              ><a href="/signup">Create account.</a></Button
+            >
+          </div>
+        </CardContent>
+      </Card>
+    </GlobalCardWrapper>
+  </div>
 </Layout>

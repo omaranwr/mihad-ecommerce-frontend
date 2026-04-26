@@ -1,0 +1,8 @@
+---
+import Product from "@/components/ProductsSection/Product.astro";
+---
+
+<div class="grid wrapper gap-2 grid-cols-[repeat(auto-fit,minmax(300px,1fr))]">
+    {[0, 0, 0, 0, 0].map(_ => (<Product name="very nice dress" price={70}/>))}
+    
+</div>
