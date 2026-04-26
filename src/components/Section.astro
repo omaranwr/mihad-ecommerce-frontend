@@ -17,9 +17,13 @@ const { title, separator = true } = Astro.props;
   >
     <slot />
   </div>
-  {separator && (
-    <div class="pb-15"></div>
-    <Separator />
-    <div class="pb-20"></div>
-  )}
+  {
+    separator && (
+      <>
+        <div class="pb-15" />
+        <Separator />
+        <div class="pb-20" />
+      </>
+    )
+  }
 </section>
