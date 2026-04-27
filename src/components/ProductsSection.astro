@@ -1,7 +1,21 @@
 ---
 import Product from "@/components/ProductsSection/Product";
+interface Props {
+  products?: Array<{
+    name: string;
+    price: number;
+    image?: string | null;
+    frontImage?: string | null;
+  }>;
+}
+
+const { products = [] } = Astro.props;
 ---
 
 <div class="grid wrapper gap-2 grid-cols-[repeat(auto-fit,minmax(300px,1fr))]">
-  {[0, 0, 0, 0, 0].map((_) => <Product name="very nice dress" price={70} />)}
+  {
+    products.map(({ name, price, image, frontImage }) => (
+      <Product name={name} price={price} />
+    ))
+  }
 </div>

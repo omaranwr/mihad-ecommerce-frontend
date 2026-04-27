@@ -2,9 +2,22 @@
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import ProductsSection from "@/components/ProductsSection.astro";
+import { db } from "@/lib/db";
+import { product, productImages, productVariant } from "@/db/schema";
+import { eq } from "drizzle-orm";
+
+const products = await db
+  .select({
+    name: product.productName,
+    price: productVariant.price,
+    image: productImages.image,
+  })
+  .from(productVariant)
+  .innerJoin(product, eq(productVariant.productId, product.id))
+  .leftJoin(productImages, eq(productImages.productId, product.id));
 ---
 
 <Layout>
   <Header title="Products" textWrap={false} />
-  <ProductsSection />
+  <ProductsSection products={products} />
 </Layout>
