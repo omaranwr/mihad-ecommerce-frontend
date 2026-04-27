@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig, fontProviders } from "astro/config";
+import { defineConfig, envField, fontProviders } from "astro/config";
 
 import tailwindcss from "@tailwindcss/vite";
 
@@ -30,4 +30,17 @@ export default defineConfig({
   ],
 
   integrations: [react()],
+
+  env: {
+    schema: {
+      TURSO_DATABASE_URL: envField.string({
+        context: "server",
+        access: "secret",
+      }),
+      TURSO_AUTH_TOKEN: envField.string({
+        context: "server",
+        access: "secret",
+      }),
+    },
+  },
 });
