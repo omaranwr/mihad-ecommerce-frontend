@@ -6,7 +6,9 @@ import { links } from "@/lib/constants";
 import Logo from "@/components/Logo.astro";
 import { getCategories } from "@/lib/db";
 
-const categories = await getCategories();
+const categories = (await getCategories()).map(
+  (category) => category.categoryName,
+);
 ---
 
 <Wrapper client:load>

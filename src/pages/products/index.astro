@@ -2,19 +2,15 @@
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import ProductsSection from "@/components/ProductsSection.astro";
-import { db } from "@/lib/db";
-import { product, productImages, productVariant } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { getProducts } from "@/lib/db";
 
-const products = await db
-  .select({
+const products = (await getProducts()).map(
+  ({ product, product_variant, product_images }) => ({
     name: product.productName,
-    price: productVariant.price,
-    image: productImages.image,
-  })
-  .from(productVariant)
-  .innerJoin(product, eq(productVariant.productId, product.id))
-  .leftJoin(productImages, eq(productImages.productId, product.id));
+    price: product_variant?.price || 0,
+    image: product_images?.image || "",
+  }),
+);
 ---
 
 <Layout>
