@@ -1,21 +1,37 @@
 ---
 import Header from "@/components/Header.astro";
+import ProductsSection from "@/components/ProductsSection.astro";
 import Layout from "@/layouts/Layout.astro";
-import { getCategories } from "@/lib/db";
+import {
+  getCategories,
+  getCategoryById,
+  getProductsByCategoryId,
+} from "@/lib/db";
 import type { GetStaticPaths } from "astro";
 
 export const getStaticPaths = (async () => {
   const categories = await getCategories();
 
-  const result = categories.map((_, index) => ({
-    params: { categorieId: String(index) },
+  const result = categories.map((category) => ({
+    params: { categorieId: String(category.id) },
   }));
   return result;
 }) satisfies GetStaticPaths;
 
 const { categorieId } = Astro.params;
+
+const products = (await getProductsByCategoryId(categorieId)).map(
+  ({ product, product_variant, product_images }) => ({
+    name: product.productName,
+    price: product_variant?.price || 0,
+    image: product_images?.image || "",
+  }),
+);
+
+const category = await getCategoryById(Number(categorieId));
 ---
 
 <Layout>
-  <Header title={"Categorie No." + categorieId} />
+  <Header title={category?.categoryName || ""} textWrap={false} />
+  <ProductsSection products={products} />
 </Layout>

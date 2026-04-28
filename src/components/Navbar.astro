@@ -6,9 +6,11 @@ import { links } from "@/lib/constants";
 import Logo from "@/components/Logo.astro";
 import { getCategories } from "@/lib/db";
 
-const categories = (await getCategories()).map(
-  (category) => category.categoryName,
-);
+const categories = (await getCategories()).map((category) => ({
+  name: category.categoryName,
+  id: category.id,
+}));
+console.log(categories);
 ---
 
 <Wrapper client:load>
@@ -17,7 +19,13 @@ const categories = (await getCategories()).map(
   >
     <div class="flex items-center gap-4">
       <div class="grid items-center">
-        <MenuButton client:load categories={categories} />
+        <MenuButton
+          client:load
+          categories={categories.map(({ name, id }) => ({
+            name,
+            link: String(id),
+          }))}
+        />
       </div>
       <ul class="hidden lg:flex gap-3 text-sm items-center">
         {

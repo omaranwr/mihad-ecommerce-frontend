@@ -15,7 +15,11 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-function MenuButton({ categories }: { categories: string[] }) {
+function MenuButton({
+  categories,
+}: {
+  categories: { name: string; link: string }[];
+}) {
   return (
     <Sheet>
       <SheetTrigger className="cursor-pointer">
@@ -58,8 +62,11 @@ function MenuButton({ categories }: { categories: string[] }) {
                 <ul className="flex flex-col gap-3 px-5">
                   {categories.map((categorie, index) => (
                     <li key={index}>
-                      <a href={"/products/" + index} className="text-base">
-                        {categorie}
+                      <a
+                        href={"/products/" + categorie.link}
+                        className="text-base"
+                      >
+                        {categorie.name}
                       </a>
                     </li>
                   ))}

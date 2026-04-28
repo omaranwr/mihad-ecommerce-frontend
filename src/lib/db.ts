@@ -30,4 +30,12 @@ export async function getProducts() {
   return products;
 }
 
-export async function getProductsByCategoryId(categoryId: string) {}
+export async function getProductsByCategoryId(categoryId: string) {
+  const products = await db
+    .select()
+    .from(product)
+    .where(eq(product.categoryId, categoryId))
+    .leftJoin(productVariant, eq(productVariant.productId, product.id))
+    .leftJoin(productImages, eq(productImages.productId, product.id));
+  return products;
+}
