@@ -1,5 +1,38 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import { socials, phoneNumber } from "@/lib/constants";
+import { Button } from "@/components/ui/button";
+
+const items = [
+  ...socials.map(({ name, link }) => ({
+    name,
+    link,
+  })),
+  {
+    name: "Phone number",
+    link: `${phoneNumber}`,
+  },
+] as const;
 ---
 
-<Layout />
+<Layout>
+  <Header title="Contacts" />
+  <ul class="wrapper text-wrapper flex gap-6 flex-col">
+    {
+      items.map(({ link, name }) => (
+        <li class="text-lg">
+          <a href={link === phoneNumber ? "tel:" + link : link} target="_blank">
+            {name}:{" "}
+            <Button
+              variant={"link"}
+              className={"break-all whitespace-normal py-0 text-start"}
+            >
+              {link}
+            </Button>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>
