@@ -52,7 +52,7 @@ function HeroCarousel({
                     <ul className="flex gap-5 pb-10">
                       {socials.map((social, index) => (
                         <li key={index}>
-                          <a href={social.link}>
+                          <a href={social.link} target="_blank">
                             <Button
                               className="bg-primary/70 soft-ring rounded-full p-3 backdrop-blur-xl"
                               size={"icon-lg"}
@@ -64,7 +64,7 @@ function HeroCarousel({
                       ))}
                     </ul>
                     <div>
-                      <a href={link.href}>
+                      <a href={link.href} target="_blank">
                         <Button className="bg-primary/57 soft-ring rounded-full px-8 py-5 backdrop-blur-xl">
                           Buy {link.name}
                         </Button>
