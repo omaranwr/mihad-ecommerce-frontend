@@ -26,10 +26,12 @@ export const links = [
 export const socials = [
   {
     link: "https://www.facebook.com/share/1CaDWcDfwi/?mibextid=wwXIfr",
+    name: "Facebook",
     icon: FacebookIcon,
   },
   {
     link: "https://www.instagram.com/mehad.co_?igsh=dzVhOThlNmRyaGhm&utm_source=qr",
+    name: "Instagram",
     icon: InstagramIcon,
   },
 ] as const;
