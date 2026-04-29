@@ -1,10 +1,8 @@
 import { Card, CardContent } from "@/components/ui/card";
+import type { ProductCard } from "@/lib/types";
 
-interface Props {
-  price: number;
-  originalPrice?: number;
-  name: string;
-  image: string | null;
+interface Props extends ProductCard {
+  originalPrice?: number | null;
 }
 
 const Product = ({ price, originalPrice, name, image }: Props) => {

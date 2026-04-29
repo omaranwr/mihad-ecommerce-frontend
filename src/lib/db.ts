@@ -1,7 +1,15 @@
-import { category, product, productImages, productVariant } from "@/db/schema";
+import {
+  category,
+  product,
+  productBaseImage,
+  productFrontImage,
+  productImages,
+  productVariant,
+} from "@/db/schema";
 import { TURSO_AUTH_TOKEN, TURSO_DATABASE_URL } from "astro:env/server";
 import { drizzle } from "drizzle-orm/libsql";
 import { eq } from "drizzle-orm";
+import type { ProductCard } from "./types";
 
 export const db = drizzle({
   connection: {
@@ -21,16 +29,24 @@ export async function getCategoryById(id: number) {
   return result[0];
 }
 
-export async function getProducts() {
+export async function getProductCards(): ProductCard[] {
   const products = await db
-    .select()
+    .select({
+      name: product.productName,
+    })
     .from(product)
-    .leftJoin(productVariant, eq(productVariant.productId, product.id))
-    .leftJoin(productImages, eq(productImages.productId, product.id));
+    .leftJoin(
+      productBaseImage,
+      eq(product.productBaseImageId, productBaseImage.id),
+    )
+    .leftJoin(
+      productFrontImage,
+      eq(product.productFrontImageId, productFrontImage.id),
+    );
   return products;
 }
 
-export async function getProductsByCategoryId(categoryId: string) {
+export async function getProductCardsByCategory(categoryId: string) {
   const products = await db
     .select()
     .from(product)
