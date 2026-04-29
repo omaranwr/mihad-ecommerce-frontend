@@ -39,14 +39,19 @@ export const legalLinks: Link[] = [
   },
 ] as const;
 
+export const facebookLink =
+  "https://www.facebook.com/share/1CaDWcDfwi/?mibextid=wwXIfr";
+export const instagramLink =
+  "https://www.instagram.com/mehad.co_?igsh=dzVhOThlNmRyaGhm&utm_source=qr";
+
 export const socials = [
   {
-    link: "https://www.facebook.com/share/1CaDWcDfwi/?mibextid=wwXIfr",
+    link: facebookLink,
     name: "Facebook",
     icon: FacebookIcon,
   },
   {
-    link: "https://www.instagram.com/mehad.co_?igsh=dzVhOThlNmRyaGhm&utm_source=qr",
+    link: instagramLink,
     name: "Instagram",
     icon: InstagramIcon,
   },
@@ -54,4 +59,4 @@ export const socials = [
 
 export const phoneNumber = "0103 5875066";
 
-export const email = socials[0].link;
+export const email = facebookLink;
