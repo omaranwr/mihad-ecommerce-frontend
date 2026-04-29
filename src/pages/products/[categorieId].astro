@@ -5,7 +5,7 @@ import Layout from "@/layouts/Layout.astro";
 import {
   getCategories,
   getCategoryById,
-  getProductsByCategoryId,
+  getProductCardsByCategoryId,
 } from "@/lib/db";
 import type { GetStaticPaths } from "astro";
 
@@ -20,13 +20,7 @@ export const getStaticPaths = (async () => {
 
 const { categorieId } = Astro.params;
 
-const products = (await getProductsByCategoryId(categorieId)).map(
-  ({ product, product_variant, product_images }) => ({
-    name: product.productName,
-    price: product_variant?.price || 0,
-    image: product_images?.image || "",
-  }),
-);
+const products = await getProductCardsByCategoryId(categorieId);
 
 const category = await getCategoryById(Number(categorieId));
 ---

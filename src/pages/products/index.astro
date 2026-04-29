@@ -2,15 +2,9 @@
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import ProductsSection from "@/components/ProductsSection.astro";
-import { getProducts } from "@/lib/db";
+import { getProductCards } from "@/lib/db";
 
-const products = (await getProducts()).map(
-  ({ product, product_variant, product_images }) => ({
-    name: product.productName,
-    price: product_variant?.price || 0,
-    image: product_images?.image || "",
-  }),
-);
+const products = await getProductCards();
 ---
 
 <Layout>
