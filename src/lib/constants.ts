@@ -53,3 +53,5 @@ export const socials = [
 ] as const;
 
 export const phoneNumber = "0103 5875066";
+
+export const email = socials[0].link;
