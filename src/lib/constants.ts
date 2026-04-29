@@ -1,6 +1,11 @@
 import { FacebookIcon, InstagramIcon } from "@/components/icons";
 
-export const links = [
+interface Link {
+  name: string;
+  href: string;
+}
+
+export const links: Link[] = [
   {
     name: "About us",
     href: "/about",
@@ -16,6 +21,21 @@ export const links = [
   {
     name: "Contacts",
     href: "/contacts",
+  },
+] as const;
+
+export const legalLinks: Link[] = [
+  {
+    name: "Legal information",
+    href: "/legal",
+  },
+  {
+    name: "Privacy policy",
+    href: "/privacy-policy",
+  },
+  {
+    name: "Terms of service",
+    href: "/terms-of-service",
   },
 ] as const;
 
