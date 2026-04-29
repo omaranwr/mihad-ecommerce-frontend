@@ -30,6 +30,9 @@ export const category = sqliteTable("category", {
 export const product = sqliteTable("product", {
   id: integer().primaryKey({ autoIncrement: true }),
   productName: text("product_name").notNull(),
+  productFrontImageId: integer("product_front_image_id").references(
+    () => productFrontImage.id,
+  ),
   description: text().notNull(),
   categoryId: integer("category_id")
     .notNull()
@@ -44,6 +47,14 @@ export const productImages = sqliteTable("product_images", {
   productId: integer("product_id")
     .notNull()
     .references(() => product.id),
+  image: text().notNull(),
+  createdAt: text("created_at")
+    .notNull()
+    .default(sql`(current_timestamp)`),
+});
+
+export const productFrontImage = sqliteTable("product_front_image", {
+  id: integer().primaryKey({ autoIncrement: true }),
   image: text().notNull(),
   createdAt: text("created_at")
     .notNull()
