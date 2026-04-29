@@ -1,5 +1,11 @@
 ---
-import { links, legalLinks, phoneNumber, email } from "@/lib/constants";
+import {
+  links,
+  legalLinks,
+  phoneNumber,
+  facebookLink,
+  instagramLink,
+} from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 const footerLinks = [...links, ...legalLinks];
@@ -16,9 +22,14 @@ const customerSupportLinks: CustormerSupportLink[] = [
     link: "tel:" + phoneNumber,
   },
   {
-    name: "Email",
-    value: email,
-    link: email,
+    name: "Facebook",
+    value: facebookLink,
+    link: facebookLink,
+  },
+  {
+    name: "Instagram",
+    value: instagramLink,
+    link: instagramLink,
   },
 ] as const;
 ---
@@ -38,7 +49,7 @@ const customerSupportLinks: CustormerSupportLink[] = [
         ))
       }
     </ul>
-    <ul class="flex flex-col">
+    <ul class="flex flex-col gap-2">
       {
         customerSupportLinks.map(({ name, value, link }) => (
           <li>
