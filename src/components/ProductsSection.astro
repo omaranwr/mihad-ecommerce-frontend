@@ -1,12 +1,8 @@
 ---
 import Product from "@/components/ProductsSection/Product";
+import type { ProductCard } from "@/lib/types";
 interface Props {
-  products?: Array<{
-    name: string;
-    price: number;
-    image?: string | null;
-    frontImage?: string | null;
-  }>;
+  products?: Array<ProductCard>;
 }
 
 const { products = [] } = Astro.props;
@@ -15,7 +11,12 @@ const { products = [] } = Astro.props;
 <div class="grid wrapper gap-2 grid-cols-[repeat(auto-fill,minmax(300px,1fr))]">
   {
     products.map(({ name, price, image, frontImage }) => (
-      <Product name={name} price={price} image={image || null} />
+      <Product
+        name={name}
+        price={price}
+        image={image || null}
+        frontImage={frontImage || null}
+      />
     ))
   }
 </div>

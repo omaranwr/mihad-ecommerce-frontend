@@ -5,16 +5,22 @@ interface Props extends ProductCard {
   originalPrice?: number | null;
 }
 
-const Product = ({ price, originalPrice, name, image }: Props) => {
+const Product = ({ price, originalPrice, name, image, frontImage }: Props) => {
   return (
     <Card className="group/product">
       <CardContent>
         <div className="relative aspect-3/4 w-full overflow-hidden rounded">
-          <div className="absolute inset-0 z-1 bg-red-600 transition-opacity duration-250 group-hover/product:opacity-0"></div>
-          {image && (
+          {frontImage && (
+            <img
+              className="absolute inset-0 z-1 h-full w-full bg-red-600 object-cover transition-opacity duration-250 group-hover/product:opacity-0"
+              src={frontImage}
+              aria-hidden
+            />
+          )}
+          {(image || frontImage) && (
             <img
               className="absolute inset-0 h-full w-full bg-gray-600 object-cover"
-              src={image}
+              src={image ? image : frontImage!}
               alt={name}
             />
           )}
