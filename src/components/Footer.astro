@@ -37,34 +37,38 @@ const customerSupportLinks: CustormerSupportLink[] = [
 <div class="pt-30"></div>
 <Separator />
 <div class="py-10">
-  <footer
-    class="text-muted-foreground wrapper max-w-4xl sm:grid grid-cols-2 flex flex-col gap-10 sm:gap-0"
-  >
-    <ul class="flex flex-col gap-3">
-      {
-        footerLinks.map(({ name, href }) => (
-          <li>
-            <a href={href}>{name}</a>
-          </li>
-        ))
-      }
-    </ul>
-    <ul class="flex flex-col gap-2">
-      {
-        customerSupportLinks.map(({ name, value, link }) => (
-          <li>
-            {name}:
-            <a href={link}>
-              <Button
-                variant="link"
-                className={"whitespace-normal break-all text-start ps-1.5! p-0"}
-              >
-                {value}
-              </Button>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+  <footer class="text-muted-foreground wrapper max-w-4xl flex flex-col gap-8">
+    <div class="sm:grid grid-cols-2 flex flex-col gap-10 sm:gap-0">
+      <ul class="flex flex-col gap-3">
+        {
+          footerLinks.map(({ name, href }) => (
+            <li>
+              <a href={href}>{name}</a>
+            </li>
+          ))
+        }
+      </ul>
+      <ul class="flex flex-col gap-2">
+        {
+          customerSupportLinks.map(({ name, value, link }) => (
+            <li>
+              {name}:
+              <a href={link}>
+                <Button
+                  variant="link"
+                  className={
+                    "whitespace-normal break-all text-start ps-1.5! p-0"
+                  }
+                >
+                  {value}
+                </Button>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <Separator />
+    <div>© 2026, Mihad</div>
   </footer>
 </div>
