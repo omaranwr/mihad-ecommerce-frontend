@@ -6,9 +6,10 @@ import Footer from "@/components/Footer.astro";
 
 interface Props {
   showNavbar?: boolean;
+  showFooter?: boolean;
 }
 
-const { showNavbar = true } = Astro.props;
+const { showNavbar = true, showFooter = true } = Astro.props;
 ---
 
 <!doctype html>
@@ -27,7 +28,7 @@ const { showNavbar = true } = Astro.props;
   <body>
     {showNavbar && <Navbar />}
     <slot />
-    <Footer />
+    {showFooter && <Footer />}
   </body>
 </html>
 
