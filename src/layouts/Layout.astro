@@ -27,7 +27,9 @@ const { showNavbar = true, showFooter = true } = Astro.props;
   </head>
   <body>
     {showNavbar && <Navbar />}
-    <slot />
+    <div class="min-h-60">
+      <slot />
+    </div>
     {showFooter && <Footer />}
   </body>
 </html>
