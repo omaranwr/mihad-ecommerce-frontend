@@ -20,7 +20,7 @@ export const getStaticPaths = (async () => {
 
 const { categorieId } = Astro.params;
 
-const products = await getProductCardsByCategoryId(categorieId);
+const products = await getProductCardsByCategoryId(Number(categorieId));
 
 const category = await getCategoryById(Number(categorieId));
 ---

@@ -63,7 +63,7 @@ export async function getProductCards(): Promise<ProductCard[]> {
   return products;
 }
 
-export async function getProductCardsByCategoryId(categoryId: string) {
+export async function getProductCardsByCategoryId(categoryId: number) {
   const variants = db
     .select({
       id: productVariant.id,
