@@ -7,7 +7,7 @@ import Logo from "@/components/Logo.astro";
 import { getCategories } from "@/lib/db";
 
 const categories = (await getCategories()).map((category) => ({
-  name: category.categoryName,
+  name: category.name,
   id: category.id,
 }));
 console.log(categories);

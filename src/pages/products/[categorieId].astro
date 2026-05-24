@@ -26,6 +26,6 @@ const category = await getCategoryById(Number(categorieId));
 ---
 
 <Layout>
-  <Header title={category?.categoryName || ""} textWrap={false} />
+  <Header title={category || ""} textWrap={false} />
   <ProductsSection products={products} />
 </Layout>
