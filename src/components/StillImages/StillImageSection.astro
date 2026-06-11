@@ -1,8 +1,7 @@
 ---
 import Image from "@/components/StillImages/ImageSectionImage";
 import { getImage } from "astro:assets";
-import { motion } from "motion/react";
-import { Button } from "@/components/ui/button";
+import ImageSectionOverlay from "./ImageSectionOverlay";
 
 interface Props {
   collection: {
@@ -20,42 +19,5 @@ const imageResult = await getImage({ src: image.src });
 
 <div class="h-svh relative" style={"clip-path: inset(0)"}>
   <Image imageResult={imageResult} alt={image.alt} client:load />
-  <div class="absolute inset-0 flex justify-center items-center">
-    <motion.div
-      client:load
-      initial={{
-        opacity: 0,
-        y: 40,
-      }}
-      whileInView={{
-        opacity: 1,
-        y: 0,
-        transition: {
-          delay: 0.1,
-          ease: "easeOut",
-        },
-      }}
-      viewport={{
-        once: true,
-      }}
-      className="flex justify-center items-center flex-col gap-5"
-    >
-      <a href={collection.href}>
-        <Button
-          className="bg-primary/45 text-primary-foreground px-4 py-7 text-3xl font-heading rounded-4xl soft-ring group"
-        >
-          <span class="underline decoration-1 group-hover:decoration-2"
-            >{collection.name}</span
-          >
-        </Button>
-      </a>
-      <a href={collection.href}>
-        <Button
-          className="bg-primary/45 py-5 px-6 text-primary-foreground rounded-full soft-ring"
-        >
-          Shop now
-        </Button>
-      </a>
-    </motion.div>
-  </div>
+  <ImageSectionOverlay collection={collection} client:load />
 </div>
