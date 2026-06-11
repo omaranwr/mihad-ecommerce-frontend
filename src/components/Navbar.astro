@@ -10,7 +10,6 @@ const categories = (await getCategories()).map((category) => ({
   name: category.name,
   id: category.id,
 }));
-console.log(categories);
 ---
 
 <Wrapper client:load>
