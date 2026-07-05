@@ -1,5 +1,34 @@
 import type { ProductCard } from "./types";
 
+export async function fetchAPI(input: string, init?: RequestInit) {
+  return fetch(import.meta.env.PUBLIC_API_URL + input, {
+    ...init,
+    headers: {
+      ...init?.headers,
+      Accept: "application/json",
+    },
+  }).then((response) => response.json());
+}
+
+export async function getAPI(input: string, init?: RequestInit) {
+  return fetchAPI(input, { ...init, method: "GET" });
+}
+export async function postAPI(
+  input: string,
+  body?: BodyInit | null,
+  init?: RequestInit,
+) {
+  return fetchAPI(input, {
+    ...init,
+    method: "POST",
+    body,
+    headers: {
+      ...init?.headers,
+      "Content-Type": "application/json",
+    },
+  });
+}
+
 // TODO
 export async function getCategories() {
   return [
