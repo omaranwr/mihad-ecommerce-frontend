@@ -29,17 +29,10 @@ export async function postAPI(
   });
 }
 
-// TODO
-export async function getCategories() {
-  return [
-    { name: "Suits", id: 1 },
-    { name: "Blouses", id: 2 },
-    { name: "Shirts", id: 3 },
-    { name: "Dresses", id: 4 },
-    { name: "Trousers", id: 5 },
-    { name: "Summer collection", id: 6 },
-    { name: "Winter collection", id: 7 },
-  ];
+export async function getCategories(): Promise<
+  Array<{ id: number; name: string }>
+> {
+  return await getAPI("/products/category-list/");
 }
 
 // TODO
