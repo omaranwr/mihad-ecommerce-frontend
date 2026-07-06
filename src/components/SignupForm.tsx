@@ -14,6 +14,7 @@ import {
   type SubmitHandler,
 } from "@formisch/react";
 import { signup } from "@/lib/db";
+import { useState } from "react";
 
 const SignUpSchema = v.pipe(
   v.object({
@@ -47,6 +48,7 @@ const SignUpSchema = v.pipe(
 );
 
 function SignUpForm() {
+  const [error, setError] = useState("");
   const signUpForm = useForm({
     schema: SignUpSchema,
   });
@@ -54,7 +56,11 @@ function SignUpForm() {
     username,
     password,
   }) => {
-    await signup(username, password);
+    const response = await signup(username, password);
+    if (!response.success) {
+      setError(response.message);
+      return;
+    }
     window.location.pathname = "/login";
   };
   return (
@@ -138,15 +144,18 @@ function SignUpForm() {
               </Field>
             )}
           </FormishField>
-          <Button
-            type="submit"
-            className={
-              "bg-primary-foreground text-primary hover:text-primary-foreground"
-            }
-            disabled={signUpForm.isSubmitting}
-          >
-            Submit
-          </Button>
+          <Field>
+            <Button
+              type="submit"
+              className={
+                "bg-primary-foreground text-primary hover:text-primary-foreground"
+              }
+              disabled={signUpForm.isSubmitting}
+            >
+              Submit
+            </Button>
+            {error && <FieldError errors={[{ message: error }]} />}
+          </Field>
         </FieldGroup>
       </Form>
     </div>

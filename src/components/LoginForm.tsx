@@ -14,6 +14,7 @@ import {
   type SubmitHandler,
 } from "@formisch/react";
 import { login } from "@/lib/db";
+import { useState } from "react";
 
 const LoginSchema = v.object({
   username: v.pipe(
@@ -29,6 +30,7 @@ const LoginSchema = v.object({
 });
 
 function LoginForm() {
+  const [error, setError] = useState("");
   const loginForm = useForm({
     schema: LoginSchema,
   });
@@ -36,10 +38,10 @@ function LoginForm() {
     username,
     password,
   }) => {
-    try {
-      await login(username, password);
-    } catch (e) {
-      console.log("Error while logging: " + e);
+    const response = await login(username, password);
+    if (!response.success) {
+      setError(response.message);
+      return;
     }
     window.location.pathname = "/";
   };
@@ -85,9 +87,12 @@ function LoginForm() {
             )}
           </FormishField>
 
-          <Button type="submit" disabled={loginForm.isSubmitting}>
-            Submit
-          </Button>
+          <Field>
+            <Button type="submit" disabled={loginForm.isSubmitting}>
+              Submit
+            </Button>
+            {error && <FieldError errors={[{ message: error }]} />}
+          </Field>
         </FieldGroup>
       </Form>
     </div>

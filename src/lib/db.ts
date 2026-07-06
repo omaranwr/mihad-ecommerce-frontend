@@ -55,13 +55,26 @@ export async function getCategories(): Promise<
 }
 
 export async function login(username: string, password: string) {
-  const response = await postAPI("/app/auth/login/", { username, password });
-  setAuthToken(response.token);
-  return response;
+  try {
+    const response = await postAPI("/app/auth/login/", { username, password });
+    setAuthToken(response.token);
+    return response;
+  } catch (e) {
+    console.log("Error while logging: " + e);
+    return e;
+  }
 }
 export async function signup(username: string, password: string) {
-  const response = await postAPI("/app/auth/register/", { username, password });
-  return response;
+  try {
+    const response = await postAPI("/app/auth/register/", {
+      username,
+      password,
+    });
+    return response;
+  } catch (e) {
+    console.log("Error while signing up: " + e);
+    return e;
+  }
 }
 
 // TODO
