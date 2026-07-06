@@ -7,14 +7,25 @@ import Footer from "@/components/Footer.astro";
 interface Props {
   showNavbar?: boolean;
   showFooter?: boolean;
+  authenticatedRoute?: boolean;
 }
 
-const { showNavbar = true, showFooter = true } = Astro.props;
+const {
+  showNavbar = true,
+  showFooter = true,
+  authenticatedRoute = false,
+} = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
+    <script is:inline define:vars={{ authenticatedRoute }}>
+      if (authenticatedRoute) {
+        if (!localStorage.getItem("token"))
+          window.location.replace(window.location.origin + "/login");
+      }
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
