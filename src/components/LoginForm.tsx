@@ -36,7 +36,12 @@ function LoginForm() {
     username,
     password,
   }) => {
-    await login(username, password);
+    try {
+      await login(username, password);
+    } catch (e) {
+      console.log("Error while logging: " + e);
+    }
+    window.location.pathname = "/";
   };
   return (
     <div className="wrapper">
