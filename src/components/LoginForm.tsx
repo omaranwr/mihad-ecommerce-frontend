@@ -39,11 +39,11 @@ function LoginForm() {
     password,
   }) => {
     const response = await login(username, password);
-    if (!response.success) {
+    if (!response?.success) {
       setError(response.message);
       return;
     }
-    // window.location.pathname = "/";
+    window.location.pathname = "/";
   };
   return (
     <div className="wrapper">

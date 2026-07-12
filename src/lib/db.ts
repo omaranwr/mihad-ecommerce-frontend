@@ -58,8 +58,10 @@ export async function getCategories(): Promise<
 export async function login(username: string, password: string) {
   try {
     const response = await postAPI("/app/auth/login/", { username, password });
-    await actions.setTokenCookie({ token: response.token });
-    setAuthToken(response.token);
+    if (response.success) {
+      const cookieResponse = await setAuthToken(response.token);
+      if (!cookieResponse?.success) return cookieResponse;
+    }
     return response;
   } catch (e) {
     console.log("Error while logging: " + e);

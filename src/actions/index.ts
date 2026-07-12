@@ -8,10 +8,18 @@ export const server = {
       token: z.string(),
     }),
     handler: async ({ token }, { cookies }) => {
-      console.log(token);
-      console.log("klja;sldkfjasd");
-      cookies.set(tokenName, token, { httpOnly: true, secure: true });
-      return { success: true } as const;
+      try {
+        cookies.set(tokenName, token, {
+          httpOnly: true,
+          secure: true,
+          sameSite: "lax",
+          maxAge: 60 * 60 * 24 * 30,
+          path: "/",
+        });
+        return { success: true } as const;
+      } catch (e) {
+        return { success: false as const, message: e } as const;
+      }
     },
   }),
 };
