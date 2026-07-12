@@ -5,6 +5,8 @@ interface Link {
   href: string;
 }
 
+export const tokenName = "token";
+
 export const links: Link[] = [
   {
     name: "About us",

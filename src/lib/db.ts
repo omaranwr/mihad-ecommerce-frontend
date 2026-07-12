@@ -1,3 +1,4 @@
+import { actions } from "astro:actions";
 import type { ProductCard } from "./types";
 import { getAuthToken, setAuthToken } from "./utils";
 
@@ -57,6 +58,7 @@ export async function getCategories(): Promise<
 export async function login(username: string, password: string) {
   try {
     const response = await postAPI("/app/auth/login/", { username, password });
+    await actions.setTokenCookie({ token: response.token });
     setAuthToken(response.token);
     return response;
   } catch (e) {

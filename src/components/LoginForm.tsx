@@ -43,7 +43,7 @@ function LoginForm() {
       setError(response.message);
       return;
     }
-    window.location.pathname = "/";
+    // window.location.pathname = "/";
   };
   return (
     <div className="wrapper">
