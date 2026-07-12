@@ -50,7 +50,7 @@ export async function postAPIWithToken(input: string, init?: RequestInit) {
 }
 
 export async function getCategories(): Promise<
-  Array<{ id: number; name: string }>
+  Array<{ id: number; name: string; slug: string }>
 > {
   return await getAPI("/products/category-list/");
 }
@@ -90,8 +90,23 @@ export async function getCategoryById(id: number) {
 }
 
 // TODO
+export async function getCategoryBySlug(slug: string) {
+  const categories = (await getCategories()).filter(
+    (category) => category.slug === slug,
+  );
+  return categories.length !== 0 ? categories[0].name : null;
+}
+
+// TODO
 export async function getProductCardsByCategoryId(
   id: number,
+): Promise<ProductCard[]> {
+  return [];
+}
+
+// TODO
+export async function getProductCardsByCategorySlug(
+  slug: string,
 ): Promise<ProductCard[]> {
   return [];
 }

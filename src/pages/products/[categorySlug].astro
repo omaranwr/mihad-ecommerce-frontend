@@ -4,8 +4,8 @@ import ProductsSection from "@/components/ProductsSection.astro";
 import Layout from "@/layouts/Layout.astro";
 import {
   getCategories,
-  getCategoryById,
-  getProductCardsByCategoryId,
+  getCategoryBySlug,
+  getProductCardsByCategorySlug,
 } from "@/lib/db";
 import type { GetStaticPaths } from "astro";
 
@@ -20,9 +20,9 @@ export const getStaticPaths = (async () => {
 
 const { categorySlug } = Astro.params;
 
-const products = await getProductCardsByCategoryId(Number(categorySlug));
+const products = await getProductCardsByCategorySlug(categorySlug);
 
-const category = await getCategoryBySlug(Number(categorySlug));
+const category = await getCategoryBySlug(categorySlug);
 ---
 
 <Layout>

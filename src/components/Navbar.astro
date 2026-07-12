@@ -8,7 +8,7 @@ import { getCategories } from "@/lib/db";
 
 const categories = (await getCategories()).map((category) => ({
   name: category.name,
-  id: category.id,
+  slug: category.slug,
 }));
 ---
 
@@ -20,9 +20,9 @@ const categories = (await getCategories()).map((category) => ({
       <div class="grid items-center">
         <MenuButton
           client:load
-          categories={categories.map(({ name, id }) => ({
+          categories={categories.map(({ name, slug }) => ({
             name,
-            link: String(id),
+            link: slug,
           }))}
         />
       </div>
