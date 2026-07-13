@@ -114,5 +114,5 @@ export async function getProductCardsByCategorySlug(
 
 // TODO
 export async function getProductCards(): Promise<Product[]> {
-  return [];
+  return getAPI("/products/product-list/");
 }
