@@ -1,5 +1,8 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import { checkAuth } from "@/lib/utils";
+
+if (!checkAuth(Astro.cookies)) return Astro.redirect("/login");
 ---
 
 <Layout authenticatedRoute />
