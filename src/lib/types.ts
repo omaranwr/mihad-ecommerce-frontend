@@ -14,6 +14,10 @@ export interface Product {
   subcategory: string;
   available_sizes: number[];
   available_colors: number[];
-  images: string[];
+  images: {
+    id: number;
+    image: string;
+    color: number;
+  }[];
   created_at: string;
 }

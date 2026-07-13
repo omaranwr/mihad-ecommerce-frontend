@@ -26,8 +26,12 @@ const products: ProductCard[] = (
 ).map(({ name, price, images }) => ({
   name,
   price,
-  frontImage: images[0] || null,
-  backImage: images[1] || null,
+  frontImage: images[0]
+    ? import.meta.env.PUBLIC_API_URL + images[0]?.image
+    : null,
+  backImage: images[1]
+    ? import.meta.env.PUBLIC_API_URL + images[1]?.image
+    : null,
 }));
 
 const category = await getCategoryBySlug(categorySlug);
