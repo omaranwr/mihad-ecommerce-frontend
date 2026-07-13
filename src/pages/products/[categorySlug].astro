@@ -8,6 +8,7 @@ import {
   getProductCardsByCategorySlug,
 } from "@/lib/db";
 import type { GetStaticPaths } from "astro";
+import type { ProductCard } from "@/components/ProductsSection/Product";
 
 export const getStaticPaths = (async () => {
   const categories = await getCategories();
@@ -20,12 +21,19 @@ export const getStaticPaths = (async () => {
 
 const { categorySlug } = Astro.params;
 
-const products = await getProductCardsByCategorySlug(categorySlug);
+const products: ProductCard[] = (
+  await getProductCardsByCategorySlug(categorySlug)
+).map(({ name, price, images }) => ({
+  name,
+  price,
+  frontImage: images[0] || null,
+  backImage: images[1] || null,
+}));
 
 const category = await getCategoryBySlug(categorySlug);
 ---
 
 <Layout>
-  <Header title={category || ""} textWrap={false} />
+  <Header title={category?.name || ""} textWrap={false} />
   <ProductsSection products={products} />
 </Layout>

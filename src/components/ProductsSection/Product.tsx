@@ -1,11 +1,20 @@
 import { Card, CardContent } from "@/components/ui/card";
-import type { ProductCard } from "@/lib/types";
 
-interface Props extends ProductCard {
+export interface ProductCard {
+  name: string;
+  price: number;
+  backImage: string | null;
+  frontImage: string | null;
   originalPrice?: number | null;
 }
 
-const Product = ({ price, originalPrice, name, image, frontImage }: Props) => {
+const Product = ({
+  price,
+  originalPrice,
+  name,
+  backImage,
+  frontImage,
+}: ProductCard) => {
   return (
     <Card className="group/product">
       <CardContent>
@@ -17,10 +26,10 @@ const Product = ({ price, originalPrice, name, image, frontImage }: Props) => {
               aria-hidden
             />
           )}
-          {(image || frontImage) && (
+          {(backImage || frontImage) && (
             <img
               className="absolute inset-0 h-full w-full bg-gray-600 object-cover"
-              src={image ? image : frontImage!}
+              src={backImage ? backImage : frontImage!}
               alt={name}
             />
           )}

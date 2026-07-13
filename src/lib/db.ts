@@ -1,5 +1,4 @@
-import { actions } from "astro:actions";
-import type { ProductCard } from "./types";
+import type { Product } from "./types";
 import { getAuthToken, setAuthToken } from "./utils";
 
 export async function fetchAPI(input: string, init?: RequestInit) {
@@ -81,37 +80,39 @@ export async function signup(username: string, password: string) {
   }
 }
 
-// TODO
 export async function getCategoryById(id: number) {
   const categories = (await getCategories()).filter(
     (category) => category.id === id,
   );
-  return categories.length !== 0 ? categories[0].name : null;
+  return categories.length !== 0 ? categories[0] : null;
 }
 
-// TODO
 export async function getCategoryBySlug(slug: string) {
   const categories = (await getCategories()).filter(
     (category) => category.slug === slug,
   );
-  return categories.length !== 0 ? categories[0].name : null;
+  return categories.length !== 0 ? categories[0] : null;
 }
 
 // TODO
 export async function getProductCardsByCategoryId(
   id: number,
-): Promise<ProductCard[]> {
-  return [];
+): Promise<Product[]> {
+  const category = await getCategoryById(id);
+  if (category === null) return [];
+  const { slug } = category;
+  const products = getProductCardsByCategorySlug(`products/category/${slug}/`);
+  return products;
 }
 
-// TODO
 export async function getProductCardsByCategorySlug(
   slug: string,
-): Promise<ProductCard[]> {
-  return [];
+): Promise<Product[]> {
+  const products = getAPI(`products/category/${slug}/`);
+  return products;
 }
 
 // TODO
-export async function getProductCards(): Promise<ProductCard[]> {
+export async function getProductCards(): Promise<Product[]> {
   return [];
 }
