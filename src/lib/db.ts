@@ -62,7 +62,7 @@ export async function postAPIWithToken(
 export async function getCategories(): Promise<
   Array<{ id: number; name: string; slug: string }>
 > {
-  return await getAPI("/products/category-list/");
+  return await getAPI("products/category-list/");
 }
 
 export async function getCategoryById(id: number) {
@@ -79,7 +79,6 @@ export async function getCategoryBySlug(slug: string) {
   return categories.length !== 0 ? categories[0] : null;
 }
 
-// TODO
 export async function getProductCardsByCategoryId(
   id: number,
 ): Promise<Product[]> {
@@ -97,8 +96,7 @@ export async function getProductCardsByCategorySlug(
   return products;
 }
 
-// TODO
 export async function getProductCards(): Promise<Product[]> {
-  const products = getAPI("/products/product-list/");
+  const products = getAPI("products/product-list/");
   return products;
 }
