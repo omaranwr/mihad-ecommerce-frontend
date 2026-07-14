@@ -3,6 +3,7 @@ import { Font } from "astro:assets";
 import "@/styles/global.css";
 import Navbar from "@/components/Navbar.astro";
 import Footer from "@/components/Footer.astro";
+import { checkAuth } from "@/lib/utils";
 
 interface Props {
   showNavbar?: boolean;
@@ -15,17 +16,20 @@ const {
   showFooter = true,
   authenticatedRoute = false,
 } = Astro.props;
+
+const isAuthenticated = checkAuth(Astro.cookies);
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <script is:inline define:vars={{ authenticatedRoute }}>
-      if (authenticatedRoute) {
-        if (!localStorage.getItem("token"))
+    {
+      authenticatedRoute && !isAuthenticated && (
+        <script is:inline>
           window.location.replace(window.location.origin + "/login");
-      }
-    </script>
+        </script>
+      )
+    }
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

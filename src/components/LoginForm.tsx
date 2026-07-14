@@ -13,8 +13,8 @@ import {
   useForm,
   type SubmitHandler,
 } from "@formisch/react";
-import { login } from "@/lib/db";
 import { useState } from "react";
+import { actions } from "astro:actions";
 
 const LoginSchema = v.object({
   username: v.pipe(
@@ -38,9 +38,9 @@ function LoginForm() {
     username,
     password,
   }) => {
-    const response = await login(username, password);
-    if (!response?.success) {
-      setError(response.message);
+    const response = await actions.login({ username, password });
+    if (response.error) {
+      setError(response.error.message);
       return;
     }
     window.location.pathname = "/";

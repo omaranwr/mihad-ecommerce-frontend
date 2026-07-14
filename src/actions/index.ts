@@ -1,25 +1,39 @@
-import { defineAction } from "astro:actions";
+import { ActionError, defineAction } from "astro:actions";
 import { z } from "astro/zod";
-import { tokenName } from "@/lib/constants";
+import { postAPI } from "@/lib/db";
+import { setAuthTokenCookie } from "@/lib/utils";
 
 export const server = {
-  setTokenCookie: defineAction({
+  signup: defineAction({
     input: z.object({
-      token: z.string(),
+      username: z.string(),
+      password: z.string(),
     }),
-    handler: async ({ token }, { cookies }) => {
-      try {
-        cookies.set(tokenName, token, {
-          httpOnly: true,
-          secure: true,
-          sameSite: "lax",
-          maxAge: 60 * 60 * 24 * 30,
-          path: "/",
+    handler: async ({ username, password }) => {
+      const response = await postAPI("/app/auth/register/", {
+        username,
+        password,
+      });
+      return response;
+    },
+  }),
+
+  login: defineAction({
+    input: z.object({
+      username: z.string(),
+      password: z.string(),
+    }),
+    handler: async ({ username, password }, { cookies }) => {
+      const response = await postAPI("/app/auth/login/", {
+        username,
+        password,
+      });
+      if (!response.success)
+        throw new ActionError({
+          code: "EXPECTATION_FAILED",
+          message: response.message,
         });
-        return { success: true } as const;
-      } catch (e) {
-        return { success: false as const, message: e } as const;
-      }
+      setAuthTokenCookie(response.token, cookies);
     },
   }),
 };

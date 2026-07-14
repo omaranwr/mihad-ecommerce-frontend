@@ -1,5 +1,6 @@
+import type { AstroCookies } from "astro";
 import type { Product } from "./types";
-import { getAuthToken, setAuthToken } from "./utils";
+import { checkAuth, getAuthTokenCookie } from "./utils";
 
 export async function fetchAPI(input: string, init?: RequestInit) {
   return fetch(import.meta.env.PUBLIC_API_URL + input, {
@@ -14,12 +15,17 @@ export async function fetchAPI(input: string, init?: RequestInit) {
 export async function getAPI(input: string, init?: RequestInit) {
   return fetchAPI(input, { ...init, method: "GET" });
 }
-export async function getAPIWithToken(input: string, init?: RequestInit) {
+export async function getAPIWithToken(
+  input: string,
+  cookies: AstroCookies,
+  init?: RequestInit,
+) {
+  if (!checkAuth(cookies)) throw Error("No auth cookie found.");
   return getAPI(input, {
     ...init,
     headers: {
       ...init?.headers,
-      Authorization: "Token " + getAuthToken(),
+      Authorization: "Token " + getAuthTokenCookie(cookies),
     },
   });
 }
@@ -38,12 +44,17 @@ export async function postAPI(
     },
   });
 }
-export async function postAPIWithToken(input: string, init?: RequestInit) {
+export async function postAPIWithToken(
+  input: string,
+  cookies: AstroCookies,
+  init?: RequestInit,
+) {
+  if (!checkAuth(cookies)) throw Error("No auth cookie found.");
   return postAPI(input, {
     ...init,
     headers: {
       ...init?.headers,
-      Authorization: "Token " + getAuthToken(),
+      Authorization: "Token " + getAuthTokenCookie(cookies),
     },
   });
 }
@@ -52,32 +63,6 @@ export async function getCategories(): Promise<
   Array<{ id: number; name: string; slug: string }>
 > {
   return await getAPI("/products/category-list/");
-}
-
-export async function login(username: string, password: string) {
-  try {
-    const response = await postAPI("/app/auth/login/", { username, password });
-    if (response.success) {
-      const cookieResponse = await setAuthToken(response.token);
-      if (!cookieResponse?.success) return cookieResponse;
-    }
-    return response;
-  } catch (e) {
-    console.log("Error while logging: " + e);
-    return e;
-  }
-}
-export async function signup(username: string, password: string) {
-  try {
-    const response = await postAPI("/app/auth/register/", {
-      username,
-      password,
-    });
-    return response;
-  } catch (e) {
-    console.log("Error while signing up: " + e);
-    return e;
-  }
 }
 
 export async function getCategoryById(id: number) {
