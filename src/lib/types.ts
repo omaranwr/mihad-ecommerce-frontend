@@ -21,3 +21,30 @@ export interface Product {
   }[];
   created_at: string;
 }
+
+export interface CartItem {
+  id: number;
+  user: number;
+  product: number;
+  product_name: string;
+  color: number;
+  color_name: string;
+  size: number;
+  size_name: string;
+  product_price: string;
+  quantity: number;
+}
+
+export interface Cart {
+  success: boolean;
+  data: {
+    items: CartItem[];
+    total_price: number;
+  };
+}
+
+export interface ProductImage {
+  id: number;
+  image: string;
+  color: string;
+}

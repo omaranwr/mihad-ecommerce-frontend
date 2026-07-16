@@ -1,8 +1,52 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { checkAuth } from "@/lib/utils";
+import "@/styles/cart.css";
+import Header from "@/components/Header.astro";
+import { getCartData, getProductImagesById } from "@/lib/db";
+import type { CartItem as CartItemType } from "@/lib/types";
+import CartSection from "@/components/CartSection";
 
 if (!checkAuth(Astro.cookies)) return Astro.redirect("/login");
+
+const { items } = await getCartData(Astro.cookies);
+
+interface CartItemWithImage extends CartItemType {
+  image: string;
+}
+let cartItems: CartItemWithImage[] = [];
+for (const item of items) {
+  const { image } = (await getProductImagesById(item.product))[0];
+  cartItems.push({
+    ...item,
+    image,
+  });
+}
 ---
 
-<Layout authenticatedRoute />
+<Layout>
+  <Header title="Cart" textWrap={false} />
+
+  <CartSection
+    client:load
+    initalItems={cartItems.map(
+      ({
+        id,
+        product_name,
+        product_price,
+        color_name,
+        size_name,
+        image,
+        quantity,
+      }) => ({
+        id,
+        name: product_name,
+        price: Number(product_price),
+        color: color_name,
+        size: size_name,
+        quantity: quantity,
+        image: import.meta.env.PUBLIC_API_URL + image,
+      }),
+    )}
+  />
+</Layout>
