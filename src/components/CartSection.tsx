@@ -6,8 +6,10 @@ import { Spinner } from "./ui/spinner";
 
 function CartSection({
   initalItems,
+  shippingFees = 0,
 }: {
   initalItems: Array<CartItemCard & { id: number }>;
+  shippingFees?: number;
 }) {
   const [cartItems, setCartItems] = useState(initalItems);
   const [optimisticCartItems, setOptimisticCartItems] =
@@ -24,7 +26,7 @@ function CartSection({
   );
 
   return (
-    <section className="wrapper grid gap-1 xl:grid-cols-[3fr_1fr]">
+    <section className="wrapper grid gap-1 xl:grid-cols-[3fr_auto]">
       <div className="flex flex-col gap-1">
         {optimisticCartItems.map((cartItem) => (
           <CartItem
@@ -84,28 +86,26 @@ function CartSection({
         ))}
       </div>
 
-      <aside className="summary">
-        <h2>ملخص الطلب</h2>
-
-        <div className="coupon">
+      <aside className="px-10 pt-10">
+        {/* <div className="coupon">
           <input type="text" placeholder="كود الخصم" />
           <button>تطبيق</button>
+        </div> */}
+
+        {shippingFees !== 0 && (
+          <>
+            <div>net total: £{totalPrice}</div>
+            <div className="text-sm">shipping: £{shippingFees}</div>
+          </>
+        )}
+        <div className="py-2 text-2xl">
+          total:
+          <span className="ps-1 text-4xl font-bold">
+            £{totalPrice + shippingFees}
+          </span>
         </div>
 
-        <div className="summary-row">
-          <span>المجموع</span>
-          <span id="subtotal">£{totalPrice}</span>
-        </div>
-        <div className="summary-row">
-          <span>الشحن</span>
-          <span>£</span>
-        </div>
-        <div className="summary-row total">
-          <span>الإجمالي</span>
-          <span id="total">£{totalPrice}</span>
-        </div>
-
-        <Button className={"w-full"} disabled={isPending}>
+        <Button className={"text-2xl"} disabled={isPending} size={"lg"}>
           {isPending ? (
             <>
               Loading <Spinner />
