@@ -1,5 +1,5 @@
 import type { AstroCookies } from "astro";
-import type { Cart, CartItem, Product, ProductImage } from "./types";
+import type { Cart, Product, ProductImage } from "./types";
 import { checkAuth, getAuthTokenCookie } from "./utils";
 
 export async function fetchAPI(input: string, init?: RequestInit) {
@@ -47,10 +47,41 @@ export async function postAPI(
 export async function postAPIWithToken(
   input: string,
   cookies: AstroCookies,
+  body?: Object | null,
   init?: RequestInit,
 ) {
   if (!checkAuth(cookies)) throw Error("No auth cookie found.");
-  return postAPI(input, {
+  return postAPI(input, body, {
+    ...init,
+    headers: {
+      ...init?.headers,
+      Authorization: "Token " + getAuthTokenCookie(cookies),
+    },
+  });
+}
+export async function deleteAPI(
+  input: string,
+  body?: Object | null,
+  init?: RequestInit,
+) {
+  return fetch(import.meta.env.PUBLIC_API_URL + input, {
+    ...init,
+    method: "DELETE",
+    body: JSON.stringify(body),
+    headers: {
+      ...init?.headers,
+      "Content-Type": "application/json",
+    },
+  });
+}
+export async function deleteAPIWithToken(
+  input: string,
+  cookies: AstroCookies,
+  body?: Object | null,
+  init?: RequestInit,
+) {
+  if (!checkAuth(cookies)) throw Error("No auth cookie found.");
+  return deleteAPI(input, body, {
     ...init,
     headers: {
       ...init?.headers,

@@ -37,7 +37,12 @@ function CartItem({
         </div>
         <div className="flex w-full grow items-center justify-between">
           <div className="flex">
-            <Button size={"icon"} variant={"secondary"} onClick={onDecrement}>
+            <Button
+              size={"icon"}
+              variant={"secondary"}
+              onClick={onDecrement}
+              disabled={quantity <= 1}
+            >
               <Minus />
             </Button>
             <input

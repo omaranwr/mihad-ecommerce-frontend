@@ -1,6 +1,7 @@
 import CartItem, { type CartItemCard } from "@/components/CartSection/CartItem";
 import { useOptimistic, useState, useTransition } from "react";
 import { Button } from "./ui/button";
+import { actions } from "astro:actions";
 
 function CartSection({
   initalItems,
@@ -38,6 +39,11 @@ function CartSection({
               };
               startTransition(async () => {
                 setOptimisticCartItems(increment(optimisticCartItems));
+                const response = await actions.updateCartItem({
+                  id: cartItem.id,
+                  quantity: cartItem.quantity + 1,
+                });
+                if (response.error) return;
                 setCartItems(increment);
               });
             }}
@@ -45,12 +51,17 @@ function CartSection({
               const decrement = (c: typeof cartItems) => {
                 const result = c.map((item) => {
                   if (item.id !== cartItem.id) return item;
-                  return { ...item, quantity: item.quantity - 1 };
+                  return { ...item, quantity: Math.max(item.quantity - 1, 1) };
                 });
                 return result;
               };
               startTransition(async () => {
                 setOptimisticCartItems(decrement(optimisticCartItems));
+                const response = await actions.updateCartItem({
+                  id: cartItem.id,
+                  quantity: Math.max(cartItem.quantity - 1, 1),
+                });
+                if (response.error) return;
                 setCartItems(decrement);
               });
             }}
@@ -61,6 +72,10 @@ function CartSection({
               };
               startTransition(async () => {
                 setOptimisticCartItems(remove(optimisticCartItems));
+                const response = await actions.deleteCartItem({
+                  id: cartItem.id,
+                });
+                if (response.error) return;
                 setCartItems(remove);
               });
             }}
