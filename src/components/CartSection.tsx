@@ -2,6 +2,7 @@ import CartItem, { type CartItemCard } from "@/components/CartSection/CartItem";
 import { useOptimistic, useState, useTransition } from "react";
 import { Button } from "./ui/button";
 import { actions } from "astro:actions";
+import { Spinner } from "./ui/spinner";
 
 function CartSection({
   initalItems,
@@ -105,7 +106,13 @@ function CartSection({
         </div>
 
         <Button className={"w-full"} disabled={isPending}>
-          Order Now
+          {isPending ? (
+            <>
+              Loading <Spinner />
+            </>
+          ) : (
+            "Order Now"
+          )}
         </Button>
       </aside>
     </section>
