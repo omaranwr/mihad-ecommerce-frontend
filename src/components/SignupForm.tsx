@@ -73,7 +73,7 @@ function SignUpForm() {
   };
   return (
     <div className="wrapper">
-      <Form of={signUpForm} onSubmit={handleSubmit}>
+      <Form of={signUpForm} onSubmit={handleSubmit} method="POST">
         <FieldGroup>
           <FormishField of={signUpForm} path={["name"]}>
             {(field) => (

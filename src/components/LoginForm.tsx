@@ -54,7 +54,7 @@ function LoginForm() {
   };
   return (
     <div className="wrapper">
-      <Form of={loginForm} onSubmit={handleSubmit}>
+      <Form of={loginForm} onSubmit={handleSubmit} method="POST">
         <FieldGroup>
           <FormishField of={loginForm} path={["username"]}>
             {(field) => (
