@@ -1,0 +1,29 @@
+---
+import Header from "@/components/Header.astro";
+import ProductsSection from "@/components/ProductsSection.astro";
+import Layout from "@/layouts/Layout.astro";
+import { getCategoryBySlug, getProductCardsBySubcategorySlug } from "@/lib/db";
+import type { ProductCard } from "@/components/ProductsSection/Product";
+
+const { categorySlug, subcategorySlug } = Astro.params;
+
+const products: ProductCard[] = (
+  await getProductCardsBySubcategorySlug(categorySlug, subcategorySlug)
+).map(({ name, price, images }) => ({
+  name,
+  price,
+  frontImage: images[0]
+    ? import.meta.env.PUBLIC_API_URL + images[0]?.image
+    : null,
+  backImage: images[1]
+    ? import.meta.env.PUBLIC_API_URL + images[1]?.image
+    : null,
+}));
+
+const category = await getCategoryBySlug(categorySlug);
+---
+
+<Layout>
+  <Header title={category?.name || ""} textWrap={false} />
+  <ProductsSection products={products} />
+</Layout>

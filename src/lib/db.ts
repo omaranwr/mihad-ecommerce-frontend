@@ -127,6 +127,16 @@ export async function getProductCardsByCategorySlug(
   return products;
 }
 
+export async function getProductCardsBySubcategorySlug(
+  categorySlug: string,
+  subCategorySlug: string,
+): Promise<Product[]> {
+  const products = getAPI(
+    `products/category/${categorySlug}/subcategory/${subCategorySlug}`,
+  );
+  return products;
+}
+
 export async function getProductCards(): Promise<Product[]> {
   const products = getAPI("products/product-list/");
   return products;
