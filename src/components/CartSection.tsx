@@ -3,6 +3,8 @@ import { useOptimistic, useState, useTransition } from "react";
 import { Button } from "./ui/button";
 import { actions } from "astro:actions";
 import { Spinner } from "./ui/spinner";
+import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
+import { AlertCircleIcon } from "lucide-react";
 
 function CartSection({
   initalItems,
@@ -23,6 +25,10 @@ function CartSection({
       return total;
     },
     0,
+  );
+
+  const [error, setError] = useState<{ title: string; message: string } | null>(
+    null,
   );
 
   return (
@@ -105,7 +111,23 @@ function CartSection({
           </span>
         </div>
 
-        <Button className={"text-2xl"} disabled={isPending} size={"lg"}>
+        <Button
+          className={"font-bold"}
+          disabled={isPending}
+          size={"lg"}
+          onClick={() => {
+            startTransition(async () => {
+              const response = await actions.checkCart({
+                cartItems: optimisticCartItems,
+              });
+              if (!response.data)
+                setError({
+                  title: "Cart out of sync.",
+                  message: "Try refreshing the page.",
+                });
+            });
+          }}
+        >
           {isPending ? (
             <>
               Loading <Spinner />
@@ -114,6 +136,16 @@ function CartSection({
             "Order Now"
           )}
         </Button>
+        {error && (
+          <>
+            <div className="py-2" />
+            <Alert variant={"destructive"} className="">
+              <AlertCircleIcon />
+              <AlertTitle>{error.title}</AlertTitle>
+              <AlertDescription>{error.message}</AlertDescription>
+            </Alert>
+          </>
+        )}
       </aside>
     </section>
   );

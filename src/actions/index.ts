@@ -1,7 +1,13 @@
 import { ActionError, defineAction } from "astro:actions";
 import { z } from "astro/zod";
-import { deleteAPIWithToken, postAPI, postAPIWithToken } from "@/lib/db";
+import {
+  deleteAPIWithToken,
+  getCartData,
+  postAPI,
+  postAPIWithToken,
+} from "@/lib/db";
 import { setAuthTokenCookie } from "@/lib/utils";
+import { delayInSeconds } from "motion/react";
 
 export const server = {
   signup: defineAction({
@@ -92,6 +98,41 @@ export const server = {
           code: "BAD_REQUEST",
         });
       }
+    },
+  }),
+
+  checkCart: defineAction({
+    input: z.object({
+      cartItems: z.array(
+        z.object({
+          id: z.number(),
+          name: z.string(),
+          color: z.string(),
+          size: z.string(),
+          price: z.number(),
+          quantity: z.number(),
+        }),
+      ),
+    }),
+    handler: async ({ cartItems }, { cookies }) => {
+      const { items } = await getCartData(cookies);
+
+      if (cartItems.length !== items.length) return false;
+
+      for (let i = 0; i < cartItems.length; i++) {
+        const clientItem = cartItems[i];
+        const dbItem = items[i];
+        if (
+          clientItem.id !== dbItem.id ||
+          clientItem.name !== dbItem.product_name ||
+          clientItem.color !== dbItem.color_name ||
+          clientItem.size !== dbItem.size_name ||
+          clientItem.price !== Number(dbItem.product_price) ||
+          clientItem.quantity !== dbItem.quantity
+        )
+          return false;
+      }
+      return true;
     },
   }),
 };
