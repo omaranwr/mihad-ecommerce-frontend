@@ -1,23 +1,18 @@
 ---
-import Product, {
-  type ProductCard,
-} from "@/components/ProductsSection/Product";
+import Product from "@/components/ProductsSection/Product";
 interface Props {
-  products?: Array<ProductCard>;
+  products?: Array<Parameters<typeof Product>[0]>;
 }
 
 const { products = [] } = Astro.props;
+
+console.log(
+  products[0].categorySlug,
+  products[0].subcategorySlug,
+  products[0].productSlug,
+);
 ---
 
 <div class="grid wrapper gap-2 grid-cols-[repeat(auto-fill,minmax(300px,1fr))]">
-  {
-    products.map(({ name, price, backImage, frontImage }) => (
-      <Product
-        name={name}
-        price={price}
-        backImage={backImage || null}
-        frontImage={frontImage || null}
-      />
-    ))
-  }
+  {products.map((product) => <Product {...product} />)}
 </div>

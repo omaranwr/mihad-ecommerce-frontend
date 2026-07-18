@@ -3,20 +3,20 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import ProductsSection from "@/components/ProductsSection.astro";
 import { getProductCards } from "@/lib/db";
-import type { ProductCard } from "@/components/ProductsSection/Product";
 
-const products: ProductCard[] = (await getProductCards()).map(
-  ({ name, price, images }) => ({
-    name,
-    price,
-    frontImage: images[0]
-      ? import.meta.env.PUBLIC_API_URL + images[0]?.image
-      : null,
-    backImage: images[1]
-      ? import.meta.env.PUBLIC_API_URL + images[1]?.image
-      : null,
-  }),
-);
+const products = (await getProductCards()).map(({ name, price, images }) => ({
+  name,
+  price,
+  frontImage: images[0]
+    ? import.meta.env.PUBLIC_API_URL + images[0]?.image
+    : null,
+  backImage: images[1]
+    ? import.meta.env.PUBLIC_API_URL + images[1]?.image
+    : null,
+  categorySlug: "testCategory",
+  subcategorySlug: "testSubcategory",
+  productSlug: "testProduct",
+}));
 ---
 
 <Layout>
