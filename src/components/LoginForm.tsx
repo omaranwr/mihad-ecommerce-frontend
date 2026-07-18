@@ -15,6 +15,12 @@ import {
 } from "@formisch/react";
 import { useState } from "react";
 import { actions } from "astro:actions";
+import {
+  InputGroup,
+  InputGroupButton,
+  InputGroupInput,
+} from "./ui/input-group";
+import { Eye, EyeOff } from "lucide-react";
 
 const LoginSchema = v.object({
   username: v.pipe(
@@ -31,6 +37,7 @@ const LoginSchema = v.object({
 
 function LoginForm() {
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const loginForm = useForm({
     schema: LoginSchema,
   });
@@ -71,13 +78,21 @@ function LoginForm() {
             {(field) => (
               <Field data-invalid={field.errors !== null}>
                 <FieldLabel htmlFor="password">Password</FieldLabel>
-                <Input
-                  {...field.props}
-                  id="password"
-                  type="password"
-                  value={field.input}
-                  aria-invalid={field.errors !== null}
-                />
+                <InputGroup>
+                  <InputGroupInput
+                    {...field.props}
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    value={field.input}
+                    aria-invalid={field.errors !== null}
+                  />
+                  <InputGroupButton
+                    className={"rounded-full"}
+                    onClick={() => setShowPassword((s) => !s)}
+                  >
+                    {showPassword ? <EyeOff /> : <Eye />}
+                  </InputGroupButton>
+                </InputGroup>
                 {field.errors && (
                   <FieldError
                     errors={field.errors.map((message) => ({ message }))}

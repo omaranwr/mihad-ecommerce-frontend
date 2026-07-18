@@ -15,6 +15,12 @@ import {
 } from "@formisch/react";
 import { useState } from "react";
 import { actions } from "astro:actions";
+import {
+  InputGroup,
+  InputGroupButton,
+  InputGroupInput,
+} from "./ui/input-group";
+import { Eye, EyeOff } from "lucide-react";
 
 const SignUpSchema = v.pipe(
   v.object({
@@ -48,6 +54,8 @@ const SignUpSchema = v.pipe(
 );
 
 function SignUpForm() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState("");
   const signUpForm = useForm({
     schema: SignUpSchema,
@@ -107,13 +115,21 @@ function SignUpForm() {
             {(field) => (
               <Field data-invalid={field.errors !== null}>
                 <FieldLabel htmlFor="password">Password</FieldLabel>
-                <Input
-                  {...field.props}
-                  id="password"
-                  type="password"
-                  value={field.input}
-                  aria-invalid={field.errors !== null}
-                />
+                <InputGroup>
+                  <InputGroupInput
+                    {...field.props}
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    value={field.input}
+                    aria-invalid={field.errors !== null}
+                  />
+                  <InputGroupButton
+                    className={"rounded-full"}
+                    onClick={() => setShowPassword((s) => !s)}
+                  >
+                    {showPassword ? <EyeOff /> : <Eye />}
+                  </InputGroupButton>
+                </InputGroup>
                 {field.errors && (
                   <FieldError
                     errors={field.errors.map((message) => ({ message }))}
@@ -128,13 +144,21 @@ function SignUpForm() {
                 <FieldLabel htmlFor="confirmPassword">
                   Confirm password
                 </FieldLabel>
-                <Input
-                  {...field.props}
-                  id="confirmPassword"
-                  type="password"
-                  value={field.input}
-                  aria-invalid={field.errors !== null}
-                />
+                <InputGroup>
+                  <InputGroupInput
+                    {...field.props}
+                    id="confirmPassword"
+                    type={showConfirmPassword ? "text" : "password"}
+                    value={field.input}
+                    aria-invalid={field.errors !== null}
+                  />
+                  <InputGroupButton
+                    className={"rounded-full"}
+                    onClick={() => setShowConfirmPassword((s) => !s)}
+                  >
+                    {showConfirmPassword ? <EyeOff /> : <Eye />}
+                  </InputGroupButton>
+                </InputGroup>
 
                 {field.errors && (
                   <FieldError
