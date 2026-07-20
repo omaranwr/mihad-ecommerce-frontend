@@ -128,6 +128,13 @@ export async function getProductCards() {
   return products;
 }
 
+export async function getProduct(categorySlug: string, productSlug: string) {
+  const product = (await getAPI(
+    `/products/product/${categorySlug}/${productSlug}/`,
+  )) as Product;
+  return product;
+}
+
 export async function getProductImagesById(id: number) {
   const productImages = (await getAPI(
     `/products/${id}/images/`,

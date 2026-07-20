@@ -1,8 +1,23 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
+import ProductImagesCarousel from "@/components/ProductImagesCarousel";
+import { getProduct } from "@/lib/db";
+
+const { categorySlug, productSlug } = Astro.params;
+
+const product = await getProduct(categorySlug!, productSlug!);
 ---
 
 <Layout>
-  <Header title="Product" />
+  <Header title="Product" textWrap={false} />
+  <div class="wrapper">
+    <ProductImagesCarousel
+      client:load
+      images={product.images.map(({ image }) => ({
+        src: import.meta.env.PUBLIC_API_URL + image,
+        alt: product.name,
+      }))}
+    />
+  </div>
 </Layout>
