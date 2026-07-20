@@ -1,5 +1,5 @@
 import type { AstroCookies } from "astro";
-import type { Cart, Product, ProductImage } from "./types";
+import type { Cart, Category, Product, ProductImage } from "./types";
 import { checkAuth, getAuthTokenCookie } from "./utils";
 
 export async function fetchAPI(input: string, init?: RequestInit) {
@@ -90,10 +90,8 @@ export async function deleteAPIWithToken(
   });
 }
 
-export async function getCategories(): Promise<
-  Array<{ id: number; name: string; slug: string }>
-> {
-  return await getAPI("products/category-list/");
+export async function getCategories() {
+  return (await getAPI("products/category-list/")) as Category[];
 }
 
 export async function getCategoryById(id: number) {
@@ -110,35 +108,23 @@ export async function getCategoryBySlug(slug: string) {
   return categories.length !== 0 ? categories[0] : null;
 }
 
-export async function getProductCardsByCategoryId(
-  id: number,
-): Promise<Product[]> {
+export async function getProductCardsByCategoryId(id: number) {
   const category = await getCategoryById(id);
   if (category === null) return [];
   const { slug } = category;
-  const products = getProductCardsByCategorySlug(`products/category/${slug}/`);
+  const products = (await getProductCardsByCategorySlug(
+    `products/category/${slug}/`,
+  )) as Product[];
   return products;
 }
 
-export async function getProductCardsByCategorySlug(
-  slug: string,
-): Promise<Product[]> {
-  const products = getAPI(`products/category/${slug}/`);
+export async function getProductCardsByCategorySlug(slug: string) {
+  const products = (await getAPI(`products/category/${slug}/`)) as Product[];
   return products;
 }
 
-export async function getProductCardsBySubcategorySlug(
-  categorySlug: string,
-  subCategorySlug: string,
-): Promise<Product[]> {
-  const products = getAPI(
-    `products/category/${categorySlug}/subcategory/${subCategorySlug}`,
-  );
-  return products;
-}
-
-export async function getProductCards(): Promise<Product[]> {
-  const products = getAPI("products/product-list/");
+export async function getProductCards() {
+  const products = (await getAPI("products/product-list/")) as Product[];
   return products;
 }
 

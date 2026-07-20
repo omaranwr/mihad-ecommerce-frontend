@@ -15,15 +15,13 @@ const Product = ({
   backImage,
   frontImage,
   categorySlug,
-  subcategorySlug,
   productSlug,
 }: ProductCard & {
   categorySlug: string;
-  subcategorySlug: string;
   productSlug: string;
 }) => {
   return (
-    <a href={`/products/${categorySlug}/${subcategorySlug}/${productSlug}`}>
+    <a href={`/products/${categorySlug}/${productSlug}`}>
       <Card className="group/product">
         <CardContent>
           <div className="relative aspect-3/4 w-full overflow-hidden rounded">

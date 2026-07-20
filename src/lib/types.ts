@@ -11,15 +11,17 @@ export interface Product {
   is_newarrival: boolean;
   category: number;
   category_name: string;
-  subcategory: string;
   available_sizes: number[];
   available_colors: number[];
-  images: {
-    id: number;
-    image: string;
-    color: number;
-  }[];
+  images: ProductImage[];
   created_at: string;
+}
+
+export interface Category {
+  id: number;
+  name: string;
+  slug: string;
+  image: string;
 }
 
 export interface CartItem {

@@ -7,7 +7,7 @@ import { getCategoryBySlug, getProductCardsByCategorySlug } from "@/lib/db";
 const { categorySlug } = Astro.params;
 
 const products = (await getProductCardsByCategorySlug(categorySlug!)).map(
-  ({ name, price, images }) => ({
+  ({ name, price, images, slug }) => ({
     name,
     price,
     frontImage: images[0]
@@ -16,9 +16,8 @@ const products = (await getProductCardsByCategorySlug(categorySlug!)).map(
     backImage: images[1]
       ? import.meta.env.PUBLIC_API_URL + images[1]?.image
       : null,
-    categorySlug: "testCategory",
-    subcategorySlug: "testSubcategory",
-    productSlug: "testProduct",
+    categorySlug: categorySlug!,
+    productSlug: slug,
   }),
 );
 

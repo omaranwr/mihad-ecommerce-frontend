@@ -2,9 +2,10 @@
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import ProductsSection from "@/components/ProductsSection.astro";
-import { getProductCards } from "@/lib/db";
+import { getCategoryById, getProductCards } from "@/lib/db";
 
-const products = (await getProductCards()).map(({ name, price, images }) => ({
+const products = await getProductCards();
+const productCards = products.map(({ name, price, images, slug }) => ({
   name,
   price,
   frontImage: images[0]
@@ -13,13 +14,17 @@ const products = (await getProductCards()).map(({ name, price, images }) => ({
   backImage: images[1]
     ? import.meta.env.PUBLIC_API_URL + images[1]?.image
     : null,
-  categorySlug: "testCategory",
-  subcategorySlug: "testSubcategory",
-  productSlug: "testProduct",
+  categorySlug: "",
+  productSlug: slug,
 }));
+for (let i = 0; i < productCards.length; i++) {
+  productCards[i].categorySlug = (await getCategoryById(
+    products[0].category,
+  ))!.slug;
+}
 ---
 
 <Layout>
   <Header title="Products" textWrap={false} />
-  <ProductsSection products={products} />
+  <ProductsSection products={productCards} />
 </Layout>
