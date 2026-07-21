@@ -13,7 +13,11 @@ export interface Product {
   category_name: string;
   available_sizes: number[];
   available_colors: number[];
-  images: ProductImage[];
+  images: {
+    id: number;
+    image: string;
+    color: number;
+  }[];
   created_at: string;
 }
 
@@ -49,4 +53,15 @@ export interface ProductImage {
   id: number;
   image: string;
   color: string;
+}
+
+export interface Color {
+  id: number;
+  name: string;
+  code: string;
+}
+
+export interface Size {
+  id: number;
+  name: string;
 }

@@ -19,11 +19,11 @@ function ProductImagesCarousel({
     api?.on("select", () => setSelected(api.selectedScrollSnap()));
   }, [api]);
   return (
-    <div className="sm:max-w-75">
+    <div className="sm:w-75">
       <Carousel opts={{ watchDrag: true }} setApi={setApi}>
         <CarouselContent>
           {images.map((img, index) => (
-            <CarouselItem key={index}>
+            <CarouselItem key={index} className="aspect-2/3">
               <img {...img} className="h-full w-full object-contain" />
             </CarouselItem>
           ))}

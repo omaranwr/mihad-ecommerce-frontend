@@ -1,5 +1,12 @@
 import type { AstroCookies } from "astro";
-import type { Cart, Category, Product, ProductImage } from "./types";
+import type {
+  Cart,
+  Category,
+  Color,
+  Product,
+  ProductImage,
+  Size,
+} from "./types";
 import { checkAuth, getAuthTokenCookie } from "./utils";
 
 export async function fetchAPI(input: string, init?: RequestInit) {
@@ -145,4 +152,14 @@ export async function getProductImagesById(id: number) {
 export async function getCartData(cookies: AstroCookies) {
   const cartItems = (await getAPIWithToken("app/api/cart/", cookies)) as Cart;
   return cartItems.data;
+}
+
+export async function getColors() {
+  const colors = (await getAPI("/products/color/")) as Color[];
+  return colors;
+}
+
+export async function getSizes() {
+  const sizes = (await getAPI("/products/size/")) as Size[];
+  return sizes;
 }

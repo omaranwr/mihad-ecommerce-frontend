@@ -1,23 +1,33 @@
 ---
+import ProductPage from "@/components/ProductPage";
 import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/Header.astro";
-import ProductImagesCarousel from "@/components/ProductImagesCarousel";
-import { getProduct } from "@/lib/db";
+import { getColors, getProduct, getSizes } from "@/lib/db";
 
 const { categorySlug, productSlug } = Astro.params;
 
 const product = await getProduct(categorySlug!, productSlug!);
+const colors = (await getColors()).filter(({ id }) =>
+  product.available_colors.includes(id),
+);
+const sizes = (await getSizes()).filter(({ id }) =>
+  product.available_sizes.includes(id),
+);
 ---
 
 <Layout>
-  <Header title="Product" textWrap={false} />
-  <div class="wrapper">
-    <ProductImagesCarousel
-      client:load
-      images={product.images.map(({ image }) => ({
-        src: import.meta.env.PUBLIC_API_URL + image,
-        alt: product.name,
-      }))}
-    />
-  </div>
+  <div class="py-20"></div>
+  <ProductPage
+    client:load
+    id={product.id}
+    name={product.name}
+    description={product.description}
+    price={product.price}
+    images={product.images.map(({ image, color }, index) => ({
+      src: import.meta.env.PUBLIC_API_URL + image,
+      alt: product.name + `(${index + 1})`,
+      color,
+    }))}
+    colors={colors}
+    sizes={sizes}
+  />
 </Layout>
