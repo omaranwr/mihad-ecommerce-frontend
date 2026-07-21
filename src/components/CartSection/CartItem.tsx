@@ -23,7 +23,11 @@ function CartItem({
 }) {
   return (
     <div className="flex justify-between gap-1 p-1 shadow">
-      <img src={image} alt={name} className="aspect-square h-30 rounded-lg" />
+      <img
+        src={image}
+        alt={name}
+        className="aspect-4/5 h-30 rounded-lg object-cover"
+      />
       <div className="flex grow flex-col items-center justify-between gap-0.5 sm:flex-row">
         <div className="flex w-full grow-3 gap-4">
           <div>
