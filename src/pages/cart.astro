@@ -15,10 +15,10 @@ interface CartItemWithImage extends CartItemType {
 }
 let cartItems: CartItemWithImage[] = [];
 for (const item of items) {
-  const { image } = (await getProductImagesById(item.product))[0];
+  const images = await getProductImagesById(item.product);
   cartItems.push({
     ...item,
-    image,
+    image: images.filter((image) => image.color === item.color_name)[0].image,
   });
 }
 ---
