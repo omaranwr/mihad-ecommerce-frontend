@@ -34,7 +34,7 @@ function ProductPage({
   sizes: { id: number; name: string }[];
 }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState("asdfdsf");
+  const [error, setError] = useState("");
   const [selectedColor, setSelectedColor] = useState(colors[0].id);
   const [selectedSize, setSelectedSize] = useState(sizes[0].id);
   return (
