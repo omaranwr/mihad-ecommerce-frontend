@@ -27,14 +27,14 @@ const Product = ({
           <div className="relative aspect-3/4 w-full overflow-hidden rounded">
             {frontImage && (
               <img
-                className="absolute inset-0 z-1 h-full w-full bg-red-600 object-cover transition-opacity duration-250 group-hover/product:opacity-0"
+                className="absolute inset-0 z-1 h-full w-full object-cover transition-opacity duration-250 group-hover/product:opacity-0"
                 src={frontImage}
                 aria-hidden
               />
             )}
             {(backImage || frontImage) && (
               <img
-                className="absolute inset-0 h-full w-full bg-gray-600 object-cover"
+                className="absolute inset-0 h-full w-full object-cover"
                 src={backImage ? backImage : frontImage!}
                 alt={name}
               />
