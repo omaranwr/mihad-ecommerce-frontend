@@ -18,7 +18,7 @@ for (const item of items) {
   const images = await getProductImagesById(item.product);
   cartItems.push({
     ...item,
-    image: images.filter((image) => image.color === item.color_name)[0].image,
+    image: images.filter((image) => image.color === item.color_name)[0]?.image,
   });
 }
 ---

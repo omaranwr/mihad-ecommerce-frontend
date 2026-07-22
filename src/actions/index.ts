@@ -88,7 +88,6 @@ export const server = {
       id: z.number(),
     }),
     handler: async ({ id }, { cookies }) => {
-      console.log(id);
       const response = await deleteAPIWithToken(
         `/app/api/cart/remove/${id}/`,
         cookies,
@@ -133,6 +132,34 @@ export const server = {
           return false;
       }
       return true;
+    },
+  }),
+  checkout: defineAction({
+    input: z.object({
+      fullName: z.string(),
+      email: z.email(),
+      phone: z.string(),
+      address: z.string(),
+      city: z.string(),
+    }),
+    handler: async ({ fullName, email, phone, address, city }, { cookies }) => {
+      const response = await postAPIWithToken(
+        "/app/api/cart/checkout/",
+        cookies,
+        {
+          full_name: fullName,
+          email,
+          phone,
+          address,
+          city,
+        },
+      );
+      console.log(response);
+      if (response.error)
+        throw new ActionError({
+          code: "EXPECTATION_FAILED",
+          message: response.error,
+        });
     },
   }),
 };

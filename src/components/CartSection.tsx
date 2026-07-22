@@ -5,6 +5,8 @@ import { actions } from "astro:actions";
 import { Spinner } from "./ui/spinner";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
 import { AlertCircleIcon } from "lucide-react";
+import { Dialog, DialogContent } from "./ui/dialog";
+import CheckoutForm from "./CartSection/CheckoutForm";
 
 function CartSection({
   initalItems,
@@ -18,6 +20,8 @@ function CartSection({
     useOptimistic(cartItems);
 
   const [isPending, startTransition] = useTransition();
+
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const totalPrice = optimisticCartItems.reduce(
     (total, { price, quantity }) => {
@@ -120,11 +124,14 @@ function CartSection({
               const response = await actions.checkCart({
                 cartItems: optimisticCartItems,
               });
-              if (!response.data)
+              if (!response.data) {
                 setError({
                   title: "Cart out of sync.",
                   message: "Try refreshing the page.",
                 });
+                return;
+              }
+              setDialogOpen(true);
             });
           }}
         >
@@ -133,9 +140,22 @@ function CartSection({
               Loading <Spinner />
             </>
           ) : (
-            "Order Now"
+            "Checkout"
           )}
         </Button>
+        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+          <DialogContent>
+            <div className="max-h-[70svh] overflow-y-auto">
+              <CheckoutForm
+                cartItems={optimisticCartItems}
+                setCheckError={(props) => {
+                  setError(props);
+                  setDialogOpen(false);
+                }}
+              />
+            </div>
+          </DialogContent>
+        </Dialog>
         {error && (
           <>
             <div className="py-2" />
